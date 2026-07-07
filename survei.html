@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Survei & Testimoni — Bandar Udara Waghete</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-page="survei" data-lang="id">
+<header class="site" id="site-header"></header>
+
+<div class="pagehero">
+  <div class="container">
+    <div class="crumb"><span class="id">Layanan / Survei & Testimoni</span><span class="en">Services / Survey & Testimonials</span></div>
+    <h1><span class="id">Survei Kepuasan & Testimoni</span><span class="en">Satisfaction Survey & Testimonials</span></h1>
+    <p class="lead"><span class="id">Penilaian Anda membantu kami meningkatkan kualitas pelayanan Bandar Udara Waghete.</span><span class="en">Your feedback helps us improve the quality of services at Waghete Airport.</span></p>
+  </div>
+</div>
+
+<section class="block">
+  <div class="container grid g2" style="align-items:start">
+    <div>
+      <div class="eyebrow"><span class="id">Survei Kepuasan Masyarakat</span><span class="en">Public Satisfaction Survey</span></div>
+      <h2 class="title"><span class="id">Beri Penilaian</span><span class="en">Rate Our Service</span></h2>
+      <div class="runway"></div>
+      <div class="card" style="margin-top:20px">
+        <div class="okmsg" style="margin-bottom:16px"><span class="id">Terima kasih atas penilaian Anda! Masukan Anda sangat berarti bagi kami.</span><span class="en">Thank you for your feedback! Your input means a lot to us.</span></div>
+        <form class="nice">
+          <div>
+            <label><span class="id">Seberapa puas Anda dengan layanan kami?</span><span class="en">How satisfied are you with our service?</span></label>
+            <div class="stars" role="radiogroup" aria-label="Rating">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <input type="hidden" id="rating-value" value="0">
+          </div>
+          <div class="row2">
+            <div>
+              <label for="snm"><span class="id">Nama (opsional)</span><span class="en">Name (optional)</span></label>
+              <input id="snm" type="text" placeholder="Nama Anda">
+            </div>
+            <div>
+              <label for="slay"><span class="id">Layanan yang Dinilai</span><span class="en">Service Being Rated</span></label>
+              <select id="slay">
+                <option>Check-in & Terminal</option>
+                <option>Keamanan / AVSEC</option>
+                <option>Kargo</option>
+                <option>Parkir</option>
+                <option>Kuliner & Souvenir</option>
+                <option>WiFi & Fasilitas</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="stx"><span class="id">Testimoni / Saran</span><span class="en">Testimony / Suggestions</span></label>
+            <textarea id="stx" rows="5" placeholder="Ceritakan pengalaman Anda..."></textarea>
+          </div>
+          <button class="btn btn-gold" type="submit"><span class="id">Kirim Penilaian</span><span class="en">Submit Feedback</span></button>
+          <p class="formnote"><span class="id">* Formulir contoh (front-end saja). Untuk survei resmi SKM, dapat dihubungkan ke Google Form.</span><span class="en">* Demo form (front-end only). For the official SKM survey, connect it to a Google Form.</span></p>
+        </form>
+      </div>
+    </div>
+
+    <div>
+      <div class="eyebrow"><span class="id">Apa Kata Mereka</span><span class="en">What People Say</span></div>
+      <h2 class="title"><span class="id">Testimoni Pengguna Jasa</span><span class="en">Service User Testimonials</span></h2>
+      <div class="runway"></div>
+      <div style="display:grid;gap:16px;margin-top:20px">
+        <div class="quote">
+          <p><span class="id">"Bandara baru jauh lebih nyaman dari lapangan terbang lama. Tidak lagi khawatir banjir dari danau, dan ruang tunggunya bersih."</span><span class="en">"The new airport is far more comfortable than the old airstrip. No more worrying about lake flooding, and the waiting room is clean."</span></p>
+          <div class="who">— Yance P., <span class="id">warga Waghete</span><span class="en">Waghete resident</span></div>
+        </div>
+        <div class="quote">
+          <p><span class="id">"Pengiriman kargo hasil bumi ke Nabire jadi lebih cepat dan teratur. Petugasnya membantu dari penimbangan sampai pemuatan."</span><span class="en">"Shipping farm produce cargo to Nabire is faster and better organized. The staff helped from weighing to loading."</span></p>
+          <div class="who">— Maria D., <span class="id">pelaku UMKM Deiyai</span><span class="en">Deiyai SME owner</span></div>
+        </div>
+        <div class="quote">
+          <p><span class="id">"Sebagai perawat yang bertugas di pedalaman, penerbangan perintis dari Waghete sangat membantu mobilitas dan pengiriman obat-obatan."</span><span class="en">"As a nurse serving the interior, pioneer flights from Waghete greatly help mobility and medicine deliveries."</span></p>
+          <div class="who">— Petrus K., <span class="id">tenaga kesehatan</span><span class="en">health worker</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site" id="site-footer"></footer>
+<script src="assets/main.js"></script>
+</body>
+</html>
