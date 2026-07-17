@@ -1,0 +1,4252 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Bandar Udara Waghete (WET) — UPBU Kelas III · Deiyai, Papua Tengah
+    </title>
+    <meta
+      name="description"
+      content="Situs resmi Bandar Udara Waghete (IATA: WET) — Unit Penyelenggara Bandar Udara Kelas III, Kabupaten Deiyai, Papua Tengah. Jadwal penerbangan, layanan, informasi & bantuan."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Public+Sans:ital,wght@0,300..800;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============================================================
+   BANDAR UDARA WAGHETE — Design System
+   Palette  : Gov blue + white ("Langit Tigi")
+   Display  : Bricolage Grotesque
+   Body     : Public Sans
+   Data     : IBM Plex Mono
+   Signature: runway approach lights + solari departure board
+   ============================================================ */
+      :root {
+        --ink: #0a1626;
+        --navy-900: #071e44;
+        --navy-800: #0b2c5f;
+        --blue-700: #10409a;
+        --blue-500: #1257c4;
+        --blue-400: #2f7df6;
+        --sky-100: #eaf2fc;
+        --sky-50: #f4f8fd;
+        --paper: #f8fafd;
+        --white: #ffffff;
+        --gold: #e8b23a; /* runway light amber — use sparingly */
+        --green: #2fa36b;
+        --line: #d8e4f3;
+        --muted: #5a6c85;
+
+        --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+        --font-body: "Public Sans", system-ui, sans-serif;
+        --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+        --r-sm: 10px;
+        --r-md: 16px;
+        --r-lg: 24px;
+        --shadow-1:
+          0 1px 2px rgba(10, 22, 38, 0.06),
+          0 8px 24px -12px rgba(11, 44, 95, 0.18);
+        --shadow-2:
+          0 2px 6px rgba(10, 22, 38, 0.08),
+          0 24px 48px -20px rgba(11, 44, 95, 0.28);
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+        --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        --wrap: 1180px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: var(--font-body);
+        color: var(--ink);
+        background: var(--paper);
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: var(--blue-400);
+        color: #fff;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+      .wrap {
+        max-width: var(--wrap);
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      /* custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 11px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--sky-50);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--blue-700);
+        border-radius: 8px;
+        border: 3px solid var(--sky-50);
+      }
+
+      /* ---------- typography ---------- */
+      .eyebrow {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--blue-500);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 26px;
+        height: 1.5px;
+        background: var(--gold);
+      }
+      h1,
+      h2,
+      h3,
+      .display {
+        font-family: var(--font-display);
+      }
+      .section-title {
+        font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+        font-weight: 700;
+        line-height: 1.08;
+        letter-spacing: -0.02em;
+        color: var(--navy-800);
+      }
+      .section-lede {
+        color: var(--muted);
+        max-width: 56ch;
+        line-height: 1.7;
+        margin-top: 14px;
+      }
+      .section-head {
+        margin-bottom: 44px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      /* ============================================================
+   SIGNATURE — runway approach lights
+   ============================================================ */
+      .runway {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        height: 22px;
+        margin: 8px 0;
+      }
+      .runway::before {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--line) 0 22px,
+          transparent 22px 40px
+        );
+      }
+      .runway .lights {
+        display: flex;
+        gap: 12px;
+      }
+      .runway .lights i {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--gold);
+        opacity: 0.25;
+        animation: rw-blink 1.8s infinite;
+        box-shadow: 0 0 8px rgba(232, 178, 58, 0);
+      }
+      .runway .lights i:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .runway .lights i:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .runway .lights i:nth-child(4) {
+        animation-delay: 0.45s;
+      }
+      .runway .lights i:nth-child(5) {
+        animation-delay: 0.6s;
+      }
+      @keyframes rw-blink {
+        0%,
+        100% {
+          opacity: 0.25;
+          box-shadow: 0 0 0 rgba(232, 178, 58, 0);
+        }
+        12% {
+          opacity: 1;
+          box-shadow: 0 0 10px rgba(232, 178, 58, 0.8);
+        }
+        30% {
+          opacity: 0.25;
+        }
+      }
+
+      /* ============================================================
+   NAV
+   ============================================================ */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        transition:
+          background 0.35s var(--ease-out),
+          box-shadow 0.35s,
+          border-color 0.35s;
+        border-bottom: 1px solid transparent;
+      }
+      .nav.scrolled {
+        background: rgba(255, 255, 255, 0.82);
+        backdrop-filter: blur(14px) saturate(1.4);
+        -webkit-backdrop-filter: blur(14px) saturate(1.4);
+        border-bottom-color: var(--line);
+        box-shadow: 0 4px 24px -12px rgba(11, 44, 95, 0.16);
+      }
+      .nav-inner {
+        max-width: var(--wrap);
+        margin: 0 auto;
+        padding: 0 24px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        flex: none;
+        background: linear-gradient(135deg, var(--blue-500), var(--navy-800));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.25),
+          var(--shadow-1);
+      }
+      .brand-mark svg {
+        width: 22px;
+        height: 22px;
+      }
+      .brand-mark img {
+        width: 34px;
+        height: 34px;
+        object-fit: contain;
+      }
+      .brand-text {
+        line-height: 1.15;
+      }
+      .brand-text b {
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 0.98rem;
+        color: var(--navy-800);
+        display: block;
+        letter-spacing: -0.01em;
+      }
+      .brand-text span {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .nav:not(.scrolled).on-hero .brand-text b {
+        color: #fff;
+      }
+      .nav:not(.scrolled).on-hero .brand-text span {
+        color: rgba(255, 255, 255, 0.65);
+      }
+
+      .menu {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        list-style: none;
+      }
+      .menu > li {
+        position: relative;
+      }
+      .menu-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 14px;
+        border-radius: 99px;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--navy-800);
+        transition:
+          background 0.25s,
+          color 0.25s;
+      }
+      .nav:not(.scrolled).on-hero .menu-link {
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .menu-link:hover {
+        background: rgba(18, 87, 196, 0.09);
+      }
+      .nav:not(.scrolled).on-hero .menu-link:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .menu-link.active {
+        background: var(--blue-500);
+        color: #fff !important;
+      }
+      .menu-link .chev {
+        width: 10px;
+        height: 10px;
+        transition: transform 0.25s;
+      }
+      .menu > li:hover .chev,
+      .menu > li:focus-within .chev {
+        transform: rotate(180deg);
+      }
+
+      .dropdown {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        min-width: 250px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        box-shadow: var(--shadow-2);
+        padding: 8px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(8px) scale(0.98);
+        transform-origin: top left;
+        transition:
+          opacity 0.25s var(--ease-out),
+          transform 0.25s var(--ease-out),
+          visibility 0.25s;
+      }
+      .menu > li:hover .dropdown,
+      .menu > li:focus-within .dropdown {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+      .dropdown a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        font-size: 0.87rem;
+        font-weight: 500;
+        color: var(--ink);
+        transition:
+          background 0.2s,
+          transform 0.2s;
+      }
+      .dropdown a:hover {
+        background: var(--sky-100);
+        transform: translateX(3px);
+      }
+      .dropdown a .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
+        flex: none;
+      }
+
+      .nav-cta {
+        padding: 10px 18px;
+        border-radius: 99px;
+        background: var(--gold);
+        color: var(--navy-900);
+        font-size: 0.85rem;
+        font-weight: 700;
+        box-shadow: 0 6px 18px -8px rgba(232, 178, 58, 0.7);
+        transition:
+          transform 0.25s var(--ease-spring),
+          box-shadow 0.25s;
+        white-space: nowrap;
+      }
+      .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px -8px rgba(232, 178, 58, 0.85);
+      }
+
+      .hamburger {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        place-items: center;
+        color: var(--navy-800);
+      }
+      .nav:not(.scrolled).on-hero .hamburger {
+        color: #fff;
+      }
+      .hamburger svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      /* mobile menu */
+      .mobile-menu {
+        position: fixed;
+        inset: 0;
+        z-index: 99;
+        background: var(--navy-900);
+        display: flex;
+        flex-direction: column;
+        padding: 100px 28px 40px;
+        gap: 4px;
+        transform: translateY(-100%);
+        transition: transform 0.5s var(--ease-out);
+        overflow-y: auto;
+      }
+      .mobile-menu.open {
+        transform: translateY(0);
+      }
+      .mobile-menu a {
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 12px 4px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      .mobile-menu.open a {
+        animation: mm-in 0.5s var(--ease-out) forwards;
+      }
+      .mobile-menu a:nth-child(2) {
+        animation-delay: 0.05s;
+      }
+      .mobile-menu a:nth-child(3) {
+        animation-delay: 0.1s;
+      }
+      .mobile-menu a:nth-child(4) {
+        animation-delay: 0.15s;
+      }
+      .mobile-menu a:nth-child(5) {
+        animation-delay: 0.2s;
+      }
+      .mobile-menu a:nth-child(6) {
+        animation-delay: 0.25s;
+      }
+      .mobile-menu a:nth-child(7) {
+        animation-delay: 0.3s;
+      }
+      .mobile-menu a:nth-child(8) {
+        animation-delay: 0.35s;
+      }
+      .mobile-menu a:nth-child(9) {
+        animation-delay: 0.4s;
+      }
+      .mobile-menu a:nth-child(10) {
+        animation-delay: 0.45s;
+      }
+      .mobile-menu a:nth-child(11) {
+        animation-delay: 0.5s;
+      }
+      .mobile-menu a:nth-child(12) {
+        animation-delay: 0.55s;
+      }
+      @keyframes mm-in {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .mobile-menu .mm-label {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        color: var(--gold);
+        text-transform: uppercase;
+      }
+
+      /* ============================================================
+   HERO
+   ============================================================ */
+      .hero {
+        position: relative;
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background:
+          radial-gradient(
+            1200px 600px at 80% -10%,
+            rgba(47, 125, 246, 0.35),
+            transparent 60%
+          ),
+          radial-gradient(
+            900px 500px at 10% 10%,
+            rgba(18, 87, 196, 0.4),
+            transparent 55%
+          ),
+          linear-gradient(
+            180deg,
+            #071e44 0%,
+            #0b2c5f 46%,
+            #10409a 78%,
+            #2f7df6 120%
+          );
+        color: #fff;
+        overflow: hidden;
+      }
+      .hero-photo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.28;
+      }
+      /* mountain silhouettes — Tanah Tigi highlands */
+      .hero::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 34vh;
+        background:
+          linear-gradient(to top, rgba(7, 30, 68, 0.9), transparent 70%),
+          radial-gradient(
+            60% 120% at 20% 130%,
+            rgba(7, 30, 68, 0.85) 60%,
+            transparent 61%
+          ),
+          radial-gradient(
+            70% 140% at 75% 140%,
+            rgba(9, 36, 80, 0.8) 60%,
+            transparent 61%
+          );
+        pointer-events: none;
+      }
+      .clouds {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .cloud {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(
+          closest-side,
+          rgba(255, 255, 255, 0.16),
+          transparent 70%
+        );
+        filter: blur(6px);
+        animation: drift linear infinite;
+      }
+      .cloud.c1 {
+        width: 520px;
+        height: 180px;
+        top: 18%;
+        left: -10%;
+        animation-duration: 70s;
+      }
+      .cloud.c2 {
+        width: 380px;
+        height: 140px;
+        top: 34%;
+        left: 40%;
+        animation-duration: 95s;
+        animation-delay: -30s;
+      }
+      .cloud.c3 {
+        width: 640px;
+        height: 200px;
+        top: 8%;
+        left: 65%;
+        animation-duration: 110s;
+        animation-delay: -60s;
+      }
+      @keyframes drift {
+        from {
+          transform: translateX(-15vw);
+        }
+        to {
+          transform: translateX(115vw);
+        }
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        max-width: var(--wrap);
+        margin: 0 auto;
+        padding: 150px 24px 0;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .hero .eyebrow {
+        color: #bbd4fa;
+      }
+      .hero .eyebrow::before {
+        background: var(--gold);
+      }
+      .hero-title {
+        font-size: clamp(2.6rem, 7.2vw, 5.6rem);
+        font-weight: 750;
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        margin: 20px 0 8px;
+        max-width: 13ch;
+      }
+      .hero-title .thin {
+        font-weight: 300;
+        font-style: italic;
+        color: #bbd4fa;
+      }
+      .hero-title .gold {
+        color: var(--gold);
+      }
+      .hero-sub {
+        color: rgba(255, 255, 255, 0.78);
+        max-width: 52ch;
+        line-height: 1.75;
+        margin: 18px 0 34px;
+        font-size: clamp(0.95rem, 1.4vw, 1.06rem);
+      }
+      .hero-ctas {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 26px;
+        border-radius: 99px;
+        font-weight: 700;
+        font-size: 0.92rem;
+        transition:
+          transform 0.3s var(--ease-spring),
+          box-shadow 0.3s,
+          background 0.3s;
+      }
+      .btn svg {
+        width: 16px;
+        height: 16px;
+        transition: transform 0.3s var(--ease-out);
+      }
+      .btn:hover svg {
+        transform: translateX(4px);
+      }
+      .btn-gold {
+        background: var(--gold);
+        color: var(--navy-900);
+        box-shadow: 0 10px 30px -10px rgba(232, 178, 58, 0.7);
+      }
+      .btn-gold:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px -10px rgba(232, 178, 58, 0.85);
+      }
+      .btn-ghost {
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        color: #fff;
+        backdrop-filter: blur(4px);
+      }
+      .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-3px);
+      }
+      .btn-blue {
+        background: var(--blue-500);
+        color: #fff;
+        box-shadow: 0 10px 30px -10px rgba(18, 87, 196, 0.6);
+      }
+      .btn-blue:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px -10px rgba(18, 87, 196, 0.75);
+      }
+
+      .hero-meta {
+        display: flex;
+        gap: 26px;
+        flex-wrap: wrap;
+        margin-top: 46px;
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.65);
+      }
+      .hero-meta b {
+        color: #fff;
+        font-weight: 600;
+      }
+      .hero-meta .live-dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        margin-right: 7px;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(47, 163, 107, 0.6);
+        }
+        60% {
+          box-shadow: 0 0 0 8px rgba(47, 163, 107, 0);
+        }
+      }
+
+      /* hero load-in choreography */
+      .hero [data-hero] {
+        opacity: 0;
+        transform: translateY(28px);
+        animation: hero-in 1s var(--ease-out) forwards;
+      }
+      .hero [data-hero="1"] {
+        animation-delay: 0.1s;
+      }
+      .hero [data-hero="2"] {
+        animation-delay: 0.25s;
+      }
+      .hero [data-hero="3"] {
+        animation-delay: 0.4s;
+      }
+      .hero [data-hero="4"] {
+        animation-delay: 0.55s;
+      }
+      .hero [data-hero="5"] {
+        animation-delay: 0.7s;
+      }
+      @keyframes hero-in {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      /* route ticker + hero runway strip */
+      .hero-foot {
+        position: relative;
+        z-index: 3;
+      }
+      .ticker {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+        background: rgba(7, 30, 68, 0.5);
+        backdrop-filter: blur(8px);
+        overflow: hidden;
+        padding: 13px 0;
+      }
+      .ticker-track {
+        display: flex;
+        gap: 56px;
+        white-space: nowrap;
+        width: max-content;
+        animation: ticker 34s linear infinite;
+        font-family: var(--font-mono);
+        font-size: 0.76rem;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
+      }
+      .ticker:hover .ticker-track {
+        animation-play-state: paused;
+      }
+      .ticker-track span b {
+        color: var(--gold);
+        font-weight: 600;
+      }
+      @keyframes ticker {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+      .hero-runway {
+        display: flex;
+        justify-content: center;
+        gap: 26px;
+        padding: 16px 0 18px;
+        background: rgba(7, 30, 68, 0.72);
+      }
+      .hero-runway i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--gold);
+        opacity: 0.2;
+        animation: rw-blink 2.2s infinite;
+      }
+      .hero-runway i:nth-child(2) {
+        animation-delay: 0.12s;
+      }
+      .hero-runway i:nth-child(3) {
+        animation-delay: 0.24s;
+      }
+      .hero-runway i:nth-child(4) {
+        animation-delay: 0.36s;
+      }
+      .hero-runway i:nth-child(5) {
+        animation-delay: 0.48s;
+      }
+      .hero-runway i:nth-child(6) {
+        animation-delay: 0.6s;
+      }
+      .hero-runway i:nth-child(7) {
+        animation-delay: 0.72s;
+      }
+      .hero-runway i:nth-child(8) {
+        animation-delay: 0.84s;
+      }
+      .hero-runway i:nth-child(9) {
+        animation-delay: 0.96s;
+      }
+      .hero-runway i:nth-child(10) {
+        animation-delay: 1.08s;
+      }
+      .hero-runway i:nth-child(11) {
+        animation-delay: 1.2s;
+      }
+      .hero-runway i:nth-child(12) {
+        animation-delay: 1.32s;
+      }
+
+      /* ============================================================
+   SECTIONS / GENERIC
+   ============================================================ */
+      section.block {
+        padding: 96px 0;
+      }
+      section.block.tint {
+        background: var(--sky-50);
+      }
+      .grid {
+        display: grid;
+        gap: 22px;
+      }
+      .grid.c3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .grid.c4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .grid.c2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      /* scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(34px);
+        transition:
+          opacity 0.9s var(--ease-out),
+          transform 0.9s var(--ease-out);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      .reveal[data-d="1"] {
+        transition-delay: 0.08s;
+      }
+      .reveal[data-d="2"] {
+        transition-delay: 0.16s;
+      }
+      .reveal[data-d="3"] {
+        transition-delay: 0.24s;
+      }
+      .reveal[data-d="4"] {
+        transition-delay: 0.32s;
+      }
+
+      /* ---------- stats ---------- */
+      .stats {
+        position: relative;
+        z-index: 4;
+        margin-top: -1px;
+        background: linear-gradient(180deg, var(--navy-900), var(--navy-800));
+        color: #fff;
+        padding: 64px 0 70px;
+      }
+      .stats .grid {
+        align-items: stretch;
+      }
+      .stat {
+        border-left: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 6px 0 6px 26px;
+        transition: transform 0.35s var(--ease-out);
+      }
+      .stat:hover {
+        transform: translateY(-4px);
+      }
+      .stat .num {
+        font-family: var(--font-display);
+        font-size: clamp(2.6rem, 5vw, 3.8rem);
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .stat .num small {
+        font-size: 1.3rem;
+        color: var(--gold);
+        font-weight: 600;
+      }
+      .stat .lbl {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 8px;
+      }
+      .stat .note {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 10px;
+        line-height: 1.55;
+      }
+
+      /* ---------- departure board ---------- */
+      .board-shell {
+        background: var(--navy-900);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-2);
+        overflow: hidden;
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .board-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 26px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        flex-wrap: wrap;
+      }
+      .board-tabs {
+        display: flex;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.07);
+        padding: 5px;
+        border-radius: 99px;
+      }
+      .board-tab {
+        padding: 9px 20px;
+        border-radius: 99px;
+        color: rgba(255, 255, 255, 0.65);
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: all 0.3s var(--ease-out);
+      }
+      .board-tab.active {
+        background: var(--gold);
+        color: var(--navy-900);
+      }
+      .board-clockline {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .board-clockline b {
+        color: var(--gold);
+      }
+      .board-head,
+      .board-row {
+        display: grid;
+        grid-template-columns: 110px 130px 1.4fr 1fr 150px;
+        gap: 14px;
+        align-items: center;
+        padding: 15px 26px;
+      }
+      .board-head {
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+        margin-top: 12px;
+      }
+      .board-rows {
+        min-height: 280px;
+      }
+      .board-row {
+        font-family: var(--font-mono);
+        font-size: 0.86rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: background 0.25s;
+        opacity: 0;
+        transform: translateY(10px);
+        animation: row-in 0.5s var(--ease-out) forwards;
+      }
+      @keyframes row-in {
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .board-row:hover {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .board-row .time {
+        color: var(--gold);
+        font-weight: 600;
+        font-size: 1rem;
+      }
+      .board-row .flight {
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .board-row .route {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        min-width: 0;
+      }
+      .board-row .route .arr {
+        color: var(--gold);
+        flex: none;
+      }
+      .board-row .airline {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.78rem;
+      }
+      .chip {
+        justify-self: start;
+        font-size: 0.66rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        border-radius: 99px;
+        font-weight: 600;
+      }
+      .chip.ok {
+        background: rgba(47, 163, 107, 0.15);
+        color: #5cd69b;
+        border: 1px solid rgba(47, 163, 107, 0.35);
+      }
+      .board-note {
+        padding: 16px 26px 22px;
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.45);
+        line-height: 1.6;
+      }
+      .board-empty {
+        padding: 60px 26px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.5);
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+      }
+
+      /* ---------- service cards ---------- */
+      .svc {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        padding: 30px 26px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.4s var(--ease-out),
+          box-shadow 0.4s,
+          border-color 0.4s;
+      }
+      .svc::before {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--blue-400), var(--gold));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.45s var(--ease-out);
+      }
+      .svc:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-2);
+        border-color: transparent;
+      }
+      .svc:hover::before {
+        transform: scaleX(1);
+      }
+      .svc .ico {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: var(--sky-100);
+        display: grid;
+        place-items: center;
+        color: var(--blue-500);
+        margin-bottom: 18px;
+        transition:
+          transform 0.4s var(--ease-spring),
+          background 0.3s,
+          color 0.3s;
+      }
+      .svc:hover .ico {
+        transform: rotate(-6deg) scale(1.08);
+        background: var(--blue-500);
+        color: #fff;
+      }
+      .svc .ico svg {
+        width: 24px;
+        height: 24px;
+      }
+      .svc h3 {
+        font-size: 1.12rem;
+        font-weight: 700;
+        color: var(--navy-800);
+        margin-bottom: 8px;
+      }
+      .svc p {
+        font-size: 0.87rem;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      /* ---------- instagram ---------- */
+      .ig-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .ig-tile {
+        aspect-ratio: 1;
+        border-radius: var(--r-md);
+        overflow: hidden;
+        position: relative;
+        display: grid;
+        place-items: center;
+        color: #fff;
+      }
+      .ig-tile .bg {
+        position: absolute;
+        inset: 0;
+        transition: transform 0.6s var(--ease-out);
+      }
+      .ig-tile .bg img,
+      .news-thumb .bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .ig-tile:hover .bg {
+        transform: scale(1.07);
+      }
+      .ig-tile .ov {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 18px;
+        background: linear-gradient(
+          to top,
+          rgba(7, 30, 68, 0.85),
+          transparent 55%
+        );
+        opacity: 0;
+        transition: opacity 0.35s;
+      }
+      .ig-tile:hover .ov {
+        opacity: 1;
+      }
+      .ig-tile .ov p {
+        font-size: 0.78rem;
+        line-height: 1.5;
+      }
+      .ig-tile .ov .h {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.14em;
+        color: var(--gold);
+        margin-bottom: 6px;
+        text-transform: uppercase;
+      }
+      .ig-tile svg {
+        width: 34px;
+        height: 34px;
+        opacity: 0.5;
+        position: relative;
+      }
+      .ig-b1 {
+        background: linear-gradient(135deg, #10409a, #2f7df6);
+      }
+      .ig-b2 {
+        background: linear-gradient(135deg, #0b2c5f, #1257c4);
+      }
+      .ig-b3 {
+        background: linear-gradient(160deg, #2f7df6, #0b2c5f);
+      }
+      .ig-b4 {
+        background: linear-gradient(135deg, #071e44, #10409a);
+      }
+      .ig-b5 {
+        background: linear-gradient(200deg, #1257c4, #071e44);
+      }
+      .ig-b6 {
+        background: linear-gradient(135deg, #0b2c5f, #2f7df6 130%);
+      }
+
+      /* ---------- news ---------- */
+      .news-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.4s var(--ease-out),
+          box-shadow 0.4s;
+      }
+      .news-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-2);
+      }
+      .news-thumb {
+        height: 170px;
+        position: relative;
+        overflow: hidden;
+      }
+      .news-thumb .bg {
+        position: absolute;
+        inset: 0;
+        transition: transform 0.6s var(--ease-out);
+      }
+      .news-card:hover .news-thumb .bg {
+        transform: scale(1.08);
+      }
+      .news-thumb .date {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: rgba(255, 255, 255, 0.92);
+        font-family: var(--font-mono);
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
+        padding: 7px 12px;
+        border-radius: 99px;
+        color: var(--navy-800);
+        font-weight: 600;
+      }
+      .news-body {
+        padding: 22px 24px 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex: 1;
+      }
+      .news-body .tag {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--blue-500);
+      }
+      .news-body h3 {
+        font-size: 1.06rem;
+        font-weight: 700;
+        color: var(--navy-800);
+        line-height: 1.4;
+      }
+      .news-body p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.65;
+        flex: 1;
+      }
+      .news-body .more {
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--blue-500);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .news-body .more svg {
+        width: 14px;
+        height: 14px;
+        transition: transform 0.3s;
+      }
+      .news-card:hover .more svg {
+        transform: translateX(4px);
+      }
+
+      /* ============================================================
+   INNER PAGES
+   ============================================================ */
+      .page {
+        display: none;
+      }
+      .page.active {
+        display: block;
+        animation: page-in 0.6s var(--ease-out);
+      }
+      @keyframes page-in {
+        from {
+          opacity: 0;
+          transform: translateY(18px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+
+      .page-hero {
+        padding: 170px 0 70px;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+        background:
+          radial-gradient(
+            900px 420px at 85% -20%,
+            rgba(47, 125, 246, 0.4),
+            transparent 60%
+          ),
+          linear-gradient(
+            160deg,
+            var(--navy-900) 0%,
+            var(--navy-800) 60%,
+            var(--blue-700) 110%
+          );
+      }
+      .page-hero .eyebrow {
+        color: #bbd4fa;
+      }
+      .page-hero h1 {
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        font-weight: 750;
+        letter-spacing: -0.025em;
+        line-height: 1.05;
+        margin-top: 16px;
+        max-width: 20ch;
+      }
+      .page-hero p {
+        color: rgba(255, 255, 255, 0.72);
+        margin-top: 16px;
+        max-width: 58ch;
+        line-height: 1.75;
+      }
+      .page-hero .runway {
+        margin-top: 36px;
+      }
+      .page-hero .runway::before {
+        background: repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.22) 0 22px,
+          transparent 22px 40px
+        );
+      }
+      .page-body {
+        padding: 76px 0 100px;
+      }
+
+      /* identity table */
+      .id-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-1);
+      }
+      .id-row {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        gap: 16px;
+        padding: 17px 26px;
+        border-bottom: 1px solid var(--sky-100);
+        transition: background 0.2s;
+      }
+      .id-row:hover {
+        background: var(--sky-50);
+      }
+      .id-row:last-child {
+        border-bottom: none;
+      }
+      .id-row .k {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        padding-top: 3px;
+      }
+      .id-row .v {
+        font-weight: 600;
+        color: var(--navy-800);
+        font-size: 0.95rem;
+        line-height: 1.55;
+      }
+      .id-row .v .mono {
+        font-family: var(--font-mono);
+        background: var(--sky-100);
+        padding: 2px 9px;
+        border-radius: 6px;
+        font-size: 0.82rem;
+        color: var(--blue-700);
+      }
+
+      .fact {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 22px;
+        transition:
+          transform 0.35s var(--ease-out),
+          box-shadow 0.35s;
+      }
+      .fact:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-1);
+      }
+      .fact .fk {
+        font-family: var(--font-mono);
+        font-size: 0.64rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .fact .fv {
+        font-family: var(--font-display);
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--navy-800);
+        margin-top: 8px;
+      }
+      .fact .fv small {
+        font-size: 0.9rem;
+        color: var(--gold);
+        font-weight: 600;
+      }
+
+      /* timeline */
+      .timeline {
+        position: relative;
+        padding-left: 34px;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 8px;
+        top: 6px;
+        bottom: 6px;
+        width: 2px;
+        background: repeating-linear-gradient(
+          180deg,
+          var(--line) 0 14px,
+          transparent 14px 26px
+        );
+      }
+      .tl-item {
+        position: relative;
+        padding: 0 0 44px 22px;
+      }
+      .tl-item:last-child {
+        padding-bottom: 0;
+      }
+      .tl-item::before {
+        content: "";
+        position: absolute;
+        left: -31px;
+        top: 5px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--gold);
+        border: 3px solid #fff;
+        box-shadow: 0 0 0 2px var(--gold);
+      }
+      .tl-item .yr {
+        font-family: var(--font-mono);
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        color: var(--blue-500);
+        font-weight: 600;
+      }
+      .tl-item h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--navy-800);
+        margin: 8px 0 8px;
+      }
+      .tl-item p {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.7;
+        max-width: 64ch;
+      }
+
+      /* list cards (tugas&fungsi, misi) */
+      .lc {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 24px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        transition:
+          transform 0.35s var(--ease-out),
+          box-shadow 0.35s,
+          border-color 0.35s;
+      }
+      .lc:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-1);
+        border-color: var(--blue-400);
+      }
+      .lc .n {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        color: var(--gold);
+        font-weight: 600;
+        border: 1px solid var(--gold);
+        border-radius: 8px;
+        padding: 5px 9px;
+        flex: none;
+      }
+      .lc h4 {
+        font-size: 0.98rem;
+        font-weight: 700;
+        color: var(--navy-800);
+        margin-bottom: 6px;
+      }
+      .lc p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      /* visi banner */
+      .visi-banner {
+        background: linear-gradient(140deg, var(--navy-900), var(--blue-700));
+        border-radius: var(--r-lg);
+        padding: 64px 48px;
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+      }
+      .visi-banner::after {
+        content: "“";
+        position: absolute;
+        top: -40px;
+        right: 24px;
+        font-family: var(--font-display);
+        font-size: 16rem;
+        color: rgba(255, 255, 255, 0.06);
+        line-height: 1;
+      }
+      .visi-banner .eyebrow {
+        color: #bbd4fa;
+      }
+      .visi-banner blockquote {
+        font-family: var(--font-display);
+        font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+        font-weight: 600;
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+        margin-top: 18px;
+        max-width: 26ch;
+      }
+      .visi-banner blockquote em {
+        color: var(--gold);
+        font-style: normal;
+      }
+
+      /* org chart */
+      .org {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+      .org-node {
+        background: #fff;
+        border: 1.5px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 18px 26px;
+        text-align: center;
+        min-width: 250px;
+        transition:
+          transform 0.3s var(--ease-out),
+          box-shadow 0.3s,
+          border-color 0.3s;
+        position: relative;
+        z-index: 1;
+      }
+      .org-node:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-1);
+        border-color: var(--blue-400);
+      }
+      .org-node .role {
+        font-weight: 700;
+        color: var(--navy-800);
+        font-size: 0.95rem;
+      }
+      .org-node .name {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+        margin-top: 5px;
+      }
+      .org-node.head {
+        border-color: var(--gold);
+        background: linear-gradient(180deg, #fff, var(--sky-50));
+      }
+      .org-link {
+        width: 2px;
+        height: 34px;
+        background: var(--line);
+      }
+      .org-tier {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: relative;
+        padding-top: 34px;
+      }
+      .org-tier::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 12%;
+        right: 12%;
+        height: 2px;
+        background: var(--line);
+      }
+      .org-tier .org-node::before {
+        content: "";
+        position: absolute;
+        top: -34px;
+        left: 50%;
+        width: 2px;
+        height: 34px;
+        background: var(--line);
+      }
+
+      /* maklumat */
+      .maklumat {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        padding: clamp(34px, 6vw, 72px);
+        text-align: center;
+        position: relative;
+        box-shadow: var(--shadow-1);
+        overflow: hidden;
+      }
+      .maklumat::before,
+      .maklumat::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: repeating-linear-gradient(
+          90deg,
+          var(--gold) 0 26px,
+          var(--blue-500) 26px 52px
+        );
+      }
+      .maklumat::before {
+        top: 0;
+      }
+      .maklumat::after {
+        bottom: 0;
+      }
+      .maklumat .seal {
+        width: 74px;
+        height: 74px;
+        margin: 0 auto 26px;
+        border-radius: 50%;
+        background: var(--sky-100);
+        display: grid;
+        place-items: center;
+        color: var(--blue-700);
+      }
+      .maklumat .seal svg {
+        width: 36px;
+        height: 36px;
+      }
+      .maklumat blockquote {
+        font-family: var(--font-display);
+        font-size: clamp(1.2rem, 2.4vw, 1.7rem);
+        font-weight: 600;
+        color: var(--navy-800);
+        line-height: 1.5;
+        max-width: 34ch;
+        margin: 0 auto;
+      }
+      .maklumat blockquote em {
+        color: var(--blue-500);
+        font-style: normal;
+      }
+      .maklumat .sign {
+        margin-top: 30px;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      /* tarif / docs embed */
+      .doc-frame {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-1);
+      }
+      .doc-frame .bar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        justify-content: space-between;
+        padding: 14px 20px;
+        border-bottom: 1px solid var(--line);
+        background: var(--sky-50);
+        flex-wrap: wrap;
+      }
+      .doc-frame .bar .t {
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      .doc-frame iframe {
+        width: 100%;
+        height: 640px;
+        border: none;
+        display: block;
+        background: #fff;
+      }
+
+      /* forms */
+      .form-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        padding: 34px;
+        box-shadow: var(--shadow-1);
+      }
+      .f-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .f-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .f-group label {
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .f-group input,
+      .f-group textarea,
+      .f-group select {
+        font: inherit;
+        font-size: 0.92rem;
+        padding: 13px 16px;
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        background: var(--sky-50);
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s,
+          background 0.25s;
+        color: var(--ink);
+      }
+      .f-group input:focus,
+      .f-group textarea:focus,
+      .f-group select:focus {
+        outline: none;
+        border-color: var(--blue-400);
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(47, 125, 246, 0.14);
+      }
+      .f-group textarea {
+        resize: vertical;
+        min-height: 130px;
+      }
+      .form-ok {
+        display: none;
+        margin-top: 16px;
+        padding: 14px 18px;
+        border-radius: 12px;
+        background: rgba(47, 163, 107, 0.1);
+        border: 1px solid rgba(47, 163, 107, 0.35);
+        color: #1d7a4e;
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+      .form-ok.show {
+        display: block;
+        animation: page-in 0.4s var(--ease-out);
+      }
+
+      /* wa card */
+      .wa-card {
+        background: linear-gradient(140deg, #0b3d2e, #14684e);
+        border-radius: var(--r-lg);
+        padding: 38px 34px;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        height: 100%;
+      }
+      .wa-card .ico {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.14);
+        display: grid;
+        place-items: center;
+      }
+      .wa-card .ico svg {
+        width: 28px;
+        height: 28px;
+      }
+      .wa-card h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+      .wa-card p {
+        font-size: 0.88rem;
+        color: rgba(255, 255, 255, 0.75);
+        line-height: 1.65;
+        flex: 1;
+      }
+      .wa-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        align-self: flex-start;
+        background: #fff;
+        color: #0b3d2e;
+        font-weight: 700;
+        font-size: 0.9rem;
+        padding: 13px 24px;
+        border-radius: 99px;
+        transition:
+          transform 0.3s var(--ease-spring),
+          box-shadow 0.3s;
+      }
+      .wa-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.4);
+      }
+
+      /* contact */
+      .contact-tile {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 26px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        transition:
+          transform 0.35s var(--ease-out),
+          box-shadow 0.35s;
+      }
+      .contact-tile:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-1);
+      }
+      .contact-tile .ico {
+        width: 46px;
+        height: 46px;
+        flex: none;
+        border-radius: 13px;
+        background: var(--sky-100);
+        color: var(--blue-500);
+        display: grid;
+        place-items: center;
+      }
+      .contact-tile .ico svg {
+        width: 22px;
+        height: 22px;
+      }
+      .contact-tile h4 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--navy-800);
+        margin-bottom: 5px;
+      }
+      .contact-tile p {
+        font-size: 0.86rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+      .map-frame {
+        border-radius: var(--r-lg);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-1);
+      }
+      .map-frame iframe {
+        width: 100%;
+        height: 420px;
+        border: none;
+        display: block;
+      }
+
+      /* survey */
+      .stars {
+        display: flex;
+        gap: 8px;
+      }
+      .stars button {
+        font-size: 2rem;
+        color: var(--line);
+        transition:
+          transform 0.2s var(--ease-spring),
+          color 0.2s;
+        line-height: 1;
+      }
+      .stars button.on,
+      .stars button:hover {
+        color: var(--gold);
+      }
+      .stars button:hover {
+        transform: scale(1.2) rotate(-8deg);
+      }
+      .testi {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--r-md);
+        padding: 26px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        transition:
+          transform 0.35s var(--ease-out),
+          box-shadow 0.35s;
+      }
+      .testi:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-1);
+      }
+      .testi .q {
+        font-size: 0.9rem;
+        color: var(--ink);
+        line-height: 1.7;
+        flex: 1;
+      }
+      .testi .who {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .testi .who .av {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        flex: none;
+        background: linear-gradient(135deg, var(--blue-400), var(--navy-800));
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        font-family: var(--font-display);
+      }
+      .testi .who b {
+        font-size: 0.86rem;
+        color: var(--navy-800);
+        display: block;
+      }
+      .testi .who span {
+        font-family: var(--font-mono);
+        font-size: 0.64rem;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+      }
+      .testi .st {
+        color: var(--gold);
+        letter-spacing: 2px;
+        font-size: 0.85rem;
+      }
+
+      /* ============================================================
+   FOOTER
+   ============================================================ */
+      footer {
+        background: var(--navy-900);
+        color: #fff;
+        position: relative;
+        overflow: hidden;
+      }
+      .foot-runway {
+        display: flex;
+        justify-content: center;
+        gap: 22px;
+        padding: 20px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .foot-runway i {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--gold);
+        opacity: 0.2;
+        animation: rw-blink 2.4s infinite;
+      }
+      .foot-runway i:nth-child(2) {
+        animation-delay: 0.14s;
+      }
+      .foot-runway i:nth-child(3) {
+        animation-delay: 0.28s;
+      }
+      .foot-runway i:nth-child(4) {
+        animation-delay: 0.42s;
+      }
+      .foot-runway i:nth-child(5) {
+        animation-delay: 0.56s;
+      }
+      .foot-runway i:nth-child(6) {
+        animation-delay: 0.7s;
+      }
+      .foot-runway i:nth-child(7) {
+        animation-delay: 0.84s;
+      }
+      .foot-runway i:nth-child(8) {
+        animation-delay: 0.98s;
+      }
+      .foot-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 1.2fr;
+        gap: 44px;
+        padding: 64px 0 46px;
+      }
+      .foot-grid h5 {
+        font-family: var(--font-mono);
+        font-size: 0.66rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 18px;
+      }
+      .foot-grid a {
+        display: block;
+        color: rgba(255, 255, 255, 0.66);
+        font-size: 0.86rem;
+        padding: 5px 0;
+        transition:
+          color 0.25s,
+          transform 0.25s;
+      }
+      .foot-grid a:hover {
+        color: #fff;
+        transform: translateX(4px);
+      }
+      .foot-brand p {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.86rem;
+        line-height: 1.7;
+        margin-top: 16px;
+        max-width: 34ch;
+      }
+      .foot-bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 22px 0;
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        font-family: var(--font-mono);
+        font-size: 0.68rem;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.42);
+      }
+      .giant-wet {
+        font-family: var(--font-display);
+        font-weight: 800;
+        font-size: clamp(6rem, 22vw, 19rem);
+        line-height: 0.8;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.045);
+        letter-spacing: -0.04em;
+        user-select: none;
+        pointer-events: none;
+        margin-top: -20px;
+      }
+
+      /* back-to-top */
+      .to-top {
+        position: fixed;
+        bottom: 26px;
+        right: 26px;
+        z-index: 90;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--navy-800);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow-2);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(14px);
+        transition: all 0.35s var(--ease-out);
+      }
+      .to-top.show {
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+      }
+      .to-top:hover {
+        background: var(--blue-500);
+        transform: translateY(-4px);
+      }
+      .to-top svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ============================================================
+   RESPONSIVE
+   ============================================================ */
+      @media (max-width: 1020px) {
+        .grid.c4 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .foot-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 34px;
+        }
+        .board-head,
+        .board-row {
+          grid-template-columns: 86px 110px 1.3fr 130px;
+          gap: 10px;
+        }
+        .board-head .h-air,
+        .board-row .airline {
+          display: none;
+        }
+      }
+      @media (max-width: 860px) {
+        .menu,
+        .nav-cta {
+          display: none;
+        }
+        .hamburger {
+          display: grid;
+        }
+        .grid.c3 {
+          grid-template-columns: 1fr;
+        }
+        .grid.c2 {
+          grid-template-columns: 1fr;
+        }
+        .stats .grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .id-row {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+        .f-row {
+          grid-template-columns: 1fr;
+        }
+        .ig-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        section.block {
+          padding: 70px 0;
+        }
+        .visi-banner {
+          padding: 44px 28px;
+        }
+      }
+      @media (max-width: 600px) {
+        .grid.c4 {
+          grid-template-columns: 1fr;
+        }
+        .board-head,
+        .board-row {
+          grid-template-columns: 72px 1.4fr 110px;
+        }
+        .board-head .h-fl,
+        .board-row .flight {
+          display: none;
+        }
+        .board-head {
+          padding: 12px 18px;
+        }
+        .board-row {
+          padding: 13px 18px;
+        }
+        .doc-frame iframe {
+          height: 480px;
+        }
+        .hero-meta {
+          gap: 14px;
+        }
+      }
+
+      /* reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+        .hero [data-hero] {
+          opacity: 1;
+          transform: none;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ NAV ============ -->
+    <nav class="nav on-hero" id="nav">
+      <div class="nav-inner">
+        <a href="#/beranda" class="brand">
+          <span class="brand-mark">
+            <img
+              src="assets/waghete-logo.png"
+              alt="Logo Bandar Udara Waghete"
+            />
+          </span>
+          <span class="brand-text">
+            <b>Bandar Udara Waghete</b>
+            <span>UPBU Kelas III · Papua Tengah</span>
+          </span>
+        </a>
+
+        <ul class="menu">
+          <li>
+            <a class="menu-link" href="#/beranda" data-route="beranda"
+              >Beranda</a
+            >
+          </li>
+          <li>
+            <button class="menu-link" data-group="profil">
+              Profil
+              <svg
+                class="chev"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m2 4 4 4 4-4" />
+              </svg>
+            </button>
+            <div class="dropdown">
+              <a href="#/informasi-umum"
+                ><span class="dot"></span>Informasi Umum</a
+              >
+              <a href="#/sejarah"><span class="dot"></span>Sejarah</a>
+              <a href="#/tugas-fungsi"
+                ><span class="dot"></span>Tugas &amp; Fungsi</a
+              >
+              <a href="#/visi-misi"><span class="dot"></span>Visi &amp; Misi</a>
+              <a href="#/struktur"
+                ><span class="dot"></span>Struktur Organisasi</a
+              >
+            </div>
+          </li>
+          <li>
+            <button class="menu-link" data-group="layanan">
+              Layanan
+              <svg
+                class="chev"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="m2 4 4 4 4-4" />
+              </svg>
+            </button>
+            <div class="dropdown">
+              <a href="#/maklumat"
+                ><span class="dot"></span>Maklumat Pelayanan</a
+              >
+              <a href="#/tarif"><span class="dot"></span>Tarif BLU</a>
+              <a href="#/bantuan"
+                ><span class="dot"></span>Bantuan &amp; Dukungan</a
+              >
+            </div>
+          </li>
+          <li>
+            <a class="menu-link" href="#/kontak" data-route="kontak">Kontak</a>
+          </li>
+          <li>
+            <a class="menu-link" href="#/survei" data-route="survei">Survei</a>
+          </li>
+        </ul>
+
+        <a href="#/bantuan" class="nav-cta">Hubungi Kami</a>
+
+        <button class="hamburger" id="hamburger" aria-label="Buka menu">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <path d="M3 6h18M3 12h18M3 18h18" />
+          </svg>
+        </button>
+      </div>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#/beranda">Beranda <span class="mm-label">Home</span></a>
+      <a href="#/informasi-umum"
+        >Informasi Umum <span class="mm-label">Profil</span></a
+      >
+      <a href="#/sejarah">Sejarah <span class="mm-label">Profil</span></a>
+      <a href="#/tugas-fungsi"
+        >Tugas &amp; Fungsi <span class="mm-label">Profil</span></a
+      >
+      <a href="#/visi-misi"
+        >Visi &amp; Misi <span class="mm-label">Profil</span></a
+      >
+      <a href="#/struktur"
+        >Struktur Organisasi <span class="mm-label">Profil</span></a
+      >
+      <a href="#/maklumat"
+        >Maklumat Pelayanan <span class="mm-label">Layanan</span></a
+      >
+      <a href="#/tarif">Tarif BLU <span class="mm-label">Layanan</span></a>
+      <a href="#/bantuan"
+        >Bantuan &amp; Dukungan <span class="mm-label">Layanan</span></a
+      >
+      <a href="#/kontak">Kontak <span class="mm-label">Info</span></a>
+      <a href="#/survei"
+        >Survei &amp; Testimoni <span class="mm-label">Info</span></a
+      >
+    </div>
+
+    <main>
+      <!-- ============================================================
+     PAGE 1 — BERANDA
+     ============================================================ -->
+      <div class="page active" id="page-beranda">
+        <header class="hero">
+          <img
+            class="hero-photo"
+            src="assets/waghete-landing.png"
+            alt="Bandar Udara Waghete"
+          />
+          <div class="clouds">
+            <span class="cloud c1"></span><span class="cloud c2"></span
+            ><span class="cloud c3"></span>
+          </div>
+
+          <div class="hero-inner">
+            <span class="eyebrow" data-hero="1"
+              >UPBU Kelas III · Kabupaten Deiyai · Papua Tengah</span
+            >
+            <h1 class="hero-title" data-hero="2">
+              Gerbang Udara <span class="thin">di atas</span>
+              <span class="gold">Danau Tigi</span>
+            </h1>
+            <p class="hero-sub" data-hero="3">
+              Bandar Udara Waghete
+              <strong>(IATA: WET · ICAO: WABA)</strong> menghubungkan Tanah
+              Deiyai dengan Nabire dan Timika — melayani penumpang, kargo, dan
+              distribusi bahan pokok bagi masyarakat pedalaman Papua Tengah, di
+              ketinggian ±1.700 mdpl.
+            </p>
+            <div class="hero-ctas" data-hero="4">
+              <a href="#jadwal" class="btn btn-gold" data-scroll
+                >Lihat Jadwal Penerbangan
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M5 12h14m-6-6 6 6-6 6" />
+                </svg>
+              </a>
+              <a href="#/informasi-umum" class="btn btn-ghost"
+                >Tentang Bandara</a
+              >
+            </div>
+            <div class="hero-meta" data-hero="5">
+              <span
+                ><i class="live-dot"></i><b>OPERASIONAL</b> · 07.00–15.00
+                WIT</span
+              >
+              <span>WAKTU LOKAL <b id="clock">--:--:--</b> WIT</span>
+              <span>ELEV. <b>±1.700 M</b> DPL</span>
+            </div>
+          </div>
+
+          <div class="hero-foot">
+            <div class="ticker">
+              <div class="ticker-track" id="ticker">
+                <span>WET <b>⇄</b> NABIRE (NBX)</span>
+                <span>WET <b>⇄</b> TIMIKA (TIM)</span>
+                <span>PESAWAT <b>·</b> GRAND CARAVAN &amp; TWIN OTTER</span>
+                <span>RUNWAY <b>·</b> 1.400 × 30 M</span>
+                <span>LAYANAN <b>·</b> PENUMPANG &amp; KARGO PERINTIS</span>
+                <span>WET <b>⇄</b> NABIRE (NBX)</span>
+                <span>WET <b>⇄</b> TIMIKA (TIM)</span>
+                <span>PESAWAT <b>·</b> GRAND CARAVAN &amp; TWIN OTTER</span>
+                <span>RUNWAY <b>·</b> 1.400 × 30 M</span>
+                <span>LAYANAN <b>·</b> PENUMPANG &amp; KARGO PERINTIS</span>
+              </div>
+            </div>
+            <div class="hero-runway">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i
+              ><i></i><i></i><i></i>
+            </div>
+          </div>
+        </header>
+
+        <!-- STATS -->
+        <section class="stats">
+          <div class="wrap">
+            <div class="grid c3">
+              <div class="stat reveal">
+                <div class="num">
+                  <span data-count="96">0</span><small>/bln</small>
+                </div>
+                <div class="lbl">Penerbangan Bulanan</div>
+                <p class="note">
+                  Rata-rata pergerakan pesawat per bulan, penerbangan perintis
+                  penumpang &amp; kargo.
+                </p>
+              </div>
+              <div class="stat reveal" data-d="1">
+                <div class="num">
+                  <span data-count="3">0</span><small>aktif</small>
+                </div>
+                <div class="lbl">Maskapai Penerbangan</div>
+                <p class="note">
+                  Operator perintis dengan armada Grand Caravan dan Twin Otter.
+                </p>
+              </div>
+              <div class="stat reveal" data-d="2">
+                <div class="num">
+                  <span data-count="120">0</span><small>±/hari</small>
+                </div>
+                <div class="lbl">Penumpang per Hari</div>
+                <p class="note">
+                  Estimasi penumpang datang &amp; berangkat pada hari
+                  operasional normal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SCHEDULE BOARD -->
+        <section class="block" id="jadwal">
+          <div class="wrap">
+            <div class="section-head reveal">
+              <span class="eyebrow">Jadwal Hari Ini</span>
+              <h2 class="section-title">
+                Papan Keberangkatan &amp; Kedatangan
+              </h2>
+              <p class="section-lede">
+                Jadwal indikatif penerbangan perintis. Waktu dapat berubah
+                sewaktu-waktu mengikuti kondisi cuaca pegunungan — konfirmasi ke
+                maskapai sebelum berangkat.
+              </p>
+            </div>
+
+            <div class="board-shell reveal" data-d="1">
+              <div class="board-top">
+                <div class="board-tabs">
+                  <button class="board-tab active" data-dir="dep">
+                    ✈ Keberangkatan
+                  </button>
+                  <button class="board-tab" data-dir="arr">⬇ Kedatangan</button>
+                </div>
+                <div class="board-clockline">
+                  WAGHETE · <b id="boardClock">--:--</b> WIT ·
+                  <span id="boardDate">--</span>
+                </div>
+              </div>
+              <div class="board-head">
+                <span>Waktu</span><span class="h-fl">No. Pnb</span
+                ><span>Rute</span><span class="h-air">Maskapai</span
+                ><span>Status</span>
+              </div>
+              <div class="board-rows" id="boardRows"></div>
+              <p class="board-note">
+                ※ Jadwal bersifat indikatif dan menunggu data resmi dari
+                operator. Penerbangan perintis di wilayah pegunungan sangat
+                bergantung pada kondisi cuaca pagi hari.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SERVICES -->
+        <section class="block tint" id="layanan">
+          <div class="wrap">
+            <div class="section-head reveal">
+              <span class="eyebrow">Fasilitas &amp; Layanan</span>
+              <h2 class="section-title">Layanan di Terminal</h2>
+              <p class="section-lede">
+                Fasilitas dasar untuk kenyamanan penumpang selama menunggu
+                penerbangan di Bandar Udara Waghete.
+              </p>
+            </div>
+            <div class="grid c4">
+              <div class="svc reveal">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="3" y="7" width="18" height="13" rx="2" />
+                    <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                    <path d="M9 13h.5a1.5 1.5 0 0 0 0-3H9v6" /></svg
+                ></span>
+                <h3>Area Parkir</h3>
+                <p>
+                  Area parkir kendaraan roda dua dan roda empat di depan
+                  terminal, dekat akses angkutan Kabupaten Deiyai.
+                </p>
+              </div>
+              <div class="svc reveal" data-d="1">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M3 11h18l-1.5 8.5A2 2 0 0 1 17.5 21h-11A2 2 0 0 1 4.5 19.5z"
+                    />
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg
+                ></span>
+                <h3>Kuliner</h3>
+                <p>
+                  Kios makanan dan minuman lokal — kopi Papua, makanan ringan,
+                  dan bekal perjalanan sebelum terbang.
+                </p>
+              </div>
+              <div class="svc reveal" data-d="2">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M20 7h-4V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM10 5h4v2h-4z"
+                    />
+                    <path d="M2 13h20" /></svg
+                ></span>
+                <h3>Souvenir</h3>
+                <p>
+                  Gerai cendera mata khas Deiyai dan Papua Tengah: noken,
+                  ukiran, dan kerajinan tangan masyarakat lokal.
+                </p>
+              </div>
+              <div class="svc reveal" data-d="3">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M5 12.5a11 11 0 0 1 14 0" />
+                    <path d="M2 9a15.5 15.5 0 0 1 20 0" />
+                    <path d="M8.5 16a6.5 6.5 0 0 1 7 0" />
+                    <circle cx="12" cy="19.5" r="1" /></svg
+                ></span>
+                <h3>WiFi Publik</h3>
+                <p>
+                  Akses internet nirkabel gratis di area ruang tunggu terminal
+                  untuk kebutuhan komunikasi penumpang.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- INSTAGRAM -->
+        <section class="block">
+          <div class="wrap">
+            <div
+              class="section-head reveal"
+              style="
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-end;
+                flex-wrap: wrap;
+                gap: 20px;
+              "
+            >
+              <div style="display: flex; flex-direction: column; gap: 10px">
+                <span class="eyebrow">Instagram</span>
+                <h2 class="section-title">@waghete_airport</h2>
+              </div>
+              <a
+                class="btn btn-blue"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+                >Ikuti Kami
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.4"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M7 17 17 7m0 0H8m9 0v9" />
+                </svg>
+              </a>
+            </div>
+            <div class="ig-grid">
+              <!-- GANTI: sematkan foto asli dari feed @waghete_airport -->
+              <a
+                class="ig-tile reveal"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="bg ig-b1"
+                  ><img
+                    src="assets/instagram-1.png"
+                    alt="Aktivitas pagi di apron"
+                /></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="1" />
+                </svg>
+                <span class="ov"
+                  ><span class="h">Operasional</span>
+                  <p>
+                    Aktivitas pagi di apron — persiapan penerbangan perintis
+                    menuju Nabire.
+                  </p></span
+                >
+              </a>
+              <a
+                class="ig-tile reveal"
+                data-d="1"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="bg ig-b2"
+                  ><img
+                    src="assets/instagram-2.png"
+                    alt="Danau Tigi dari udara"
+                /></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="1" />
+                </svg>
+                <span class="ov"
+                  ><span class="h">Panorama</span>
+                  <p>
+                    Danau Tigi dari udara — pemandangan khas pendekatan Runway
+                    Waghete.
+                  </p></span
+                >
+              </a>
+              <a
+                class="ig-tile reveal"
+                data-d="2"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="bg ig-b3"
+                  ><img
+                    src="assets/instagram-3.png"
+                    alt="Apel pagi personel UPBU Waghete"
+                /></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="1" />
+                </svg>
+                <span class="ov"
+                  ><span class="h">Kegiatan</span>
+                  <p>
+                    Apel pagi personel UPBU Kelas III Waghete bersama jajaran
+                    keamanan bandara.
+                  </p></span
+                >
+              </a>
+              <a
+                class="ig-tile reveal"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="bg ig-b4"
+                  ><img
+                    src="assets/instagram-4.png"
+                    alt="Bongkar muat kargo bahan pokok"
+                /></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="1" />
+                </svg>
+                <span class="ov"
+                  ><span class="h">Kargo</span>
+                  <p>
+                    Bongkar muat kargo bahan pokok untuk masyarakat pedalaman
+                    Deiyai.
+                  </p></span
+                >
+              </a>
+              <a
+                class="ig-tile reveal"
+                data-d="1"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="bg ig-b5"
+                  ><img
+                    src="assets/instagram-5.png"
+                    alt="Perawatan fasilitas sisi udara"
+                /></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="1" />
+                </svg>
+                <span class="ov"
+                  ><span class="h">Fasilitas</span>
+                  <p>
+                    Perawatan fasilitas sisi udara — menjaga keselamatan operasi
+                    penerbangan.
+                  </p></span
+                >
+              </a>
+              <a
+                class="ig-tile reveal"
+                data-d="2"
+                href="https://www.instagram.com/waghete_airport/"
+                target="_blank"
+                rel="noopener"
+              >
+                <span class="bg ig-b6"
+                  ><img
+                    src="assets/instagram-6.png"
+                    alt="Sinergi bandara dengan masyarakat Deiyai"
+                /></span>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <circle cx="17.2" cy="6.8" r="1" />
+                </svg>
+                <span class="ov"
+                  ><span class="h">Komunitas</span>
+                  <p>
+                    Sinergi bandara dengan masyarakat dan pemerintah Kabupaten
+                    Deiyai.
+                  </p></span
+                >
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- NEWS -->
+        <section class="block tint">
+          <div class="wrap">
+            <div class="section-head reveal">
+              <span class="eyebrow">Kabar Terkini</span>
+              <h2 class="section-title">Berita &amp; Pengumuman</h2>
+            </div>
+            <div class="grid c3">
+              <article class="news-card reveal">
+                <div class="news-thumb">
+                  <span class="bg ig-b1"
+                    ><img
+                      src="assets/news-1.png"
+                      alt="Penerbangan perintis Waghete–Nabire" /></span
+                  ><span class="date">02 JUL 2026</span>
+                </div>
+                <div class="news-body">
+                  <span class="tag">Operasional</span>
+                  <h3>
+                    Peningkatan Frekuensi Penerbangan Perintis Rute
+                    Waghete–Nabire
+                  </h3>
+                  <p>
+                    Menjelang akhir tahun anggaran, frekuensi penerbangan
+                    perintis rute WET–NBX direncanakan bertambah untuk mendukung
+                    mobilitas masyarakat Deiyai.
+                  </p>
+                  <span class="more"
+                    >Baca selengkapnya
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14m-6-6 6 6-6 6" /></svg
+                  ></span>
+                </div>
+              </article>
+              <article class="news-card reveal" data-d="1">
+                <div class="news-thumb">
+                  <span class="bg ig-b3"
+                    ><img
+                      src="assets/news-2.png"
+                      alt="Pemeliharaan fasilitas sisi udara" /></span
+                  ><span class="date">18 JUN 2026</span>
+                </div>
+                <div class="news-body">
+                  <span class="tag">Fasilitas</span>
+                  <h3>
+                    Pemeliharaan Berkala Fasilitas Sisi Udara Selesai
+                    Dilaksanakan
+                  </h3>
+                  <p>
+                    Pemeliharaan runway, taxiway, dan apron telah dituntaskan
+                    sesuai standar keselamatan Ditjen Perhubungan Udara untuk
+                    menjamin operasi yang aman.
+                  </p>
+                  <span class="more"
+                    >Baca selengkapnya
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14m-6-6 6 6-6 6" /></svg
+                  ></span>
+                </div>
+              </article>
+              <article class="news-card reveal" data-d="2">
+                <div class="news-thumb">
+                  <span class="bg ig-b5"
+                    ><img
+                      src="assets/news-3.png"
+                      alt="Survei kepuasan penumpang" /></span
+                  ><span class="date">05 JUN 2026</span>
+                </div>
+                <div class="news-body">
+                  <span class="tag">Pelayanan</span>
+                  <h3>
+                    Survei Kepuasan Penumpang Semester I Tahun 2026 Dibuka
+                  </h3>
+                  <p>
+                    UPBU Waghete mengundang seluruh pengguna jasa untuk mengisi
+                    survei kepuasan sebagai dasar perbaikan mutu pelayanan
+                    bandara.
+                  </p>
+                  <span class="more"
+                    >Isi survei
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M5 12h14m-6-6 6 6-6 6" /></svg
+                  ></span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ============ PAGE 2 — INFORMASI UMUM ============ -->
+      <div class="page" id="page-informasi-umum">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Profil · Informasi Umum</span>
+            <h1>Identitas Bandar Udara</h1>
+            <p>
+              Data pokok Bandar Udara Waghete sebagai Unit Penyelenggara Bandar
+              Udara (UPBU) Kelas III di lingkungan Direktorat Jenderal
+              Perhubungan Udara, Kementerian Perhubungan RI.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="grid c4" style="margin-bottom: 44px">
+              <div class="fact reveal">
+                <span class="fk">Kode IATA</span>
+                <div class="fv">WET</div>
+              </div>
+              <div class="fact reveal" data-d="1">
+                <span class="fk">Kode ICAO</span>
+                <div class="fv">WABA</div>
+              </div>
+              <div class="fact reveal" data-d="2">
+                <span class="fk">Runway</span>
+                <div class="fv">1.400 <small>× 30 m</small></div>
+              </div>
+              <div class="fact reveal" data-d="3">
+                <span class="fk">Elevasi</span>
+                <div class="fv">±1.700 <small>mdpl</small></div>
+              </div>
+            </div>
+
+            <div class="id-card reveal">
+              <div class="id-row">
+                <span class="k">Nama Bandar Udara</span
+                ><span class="v">Bandar Udara Waghete (Waghete Baru)</span>
+              </div>
+              <div class="id-row">
+                <span class="k">Penyelenggara</span
+                ><span class="v"
+                  >Unit Penyelenggara Bandar Udara (UPBU) Kelas III Waghete —
+                  Ditjen Perhubungan Udara, Kementerian Perhubungan RI</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Kode Bandara</span
+                ><span class="v"
+                  ><span class="mono">IATA: WET</span> &nbsp;
+                  <span class="mono">ICAO: WABA</span></span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Lokasi</span
+                ><span class="v"
+                  >Distrik Tigi, Kabupaten Deiyai, Provinsi Papua Tengah — di
+                  tepi Danau Tigi</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Klasifikasi</span
+                ><span class="v"
+                  >Bandar udara domestik kelas III (perintis)</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Landas Pacu</span
+                ><span class="v"
+                  >1.400 m × 30 m, permukaan aspal, arah 10/28</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Tipe Pesawat</span
+                ><span class="v"
+                  >Cessna Grand Caravan C208, DHC-6 Twin Otter, dan
+                  sekelasnya</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Rute Utama</span
+                ><span class="v"
+                  >Waghete ⇄ Nabire (NBX) · Waghete ⇄ Timika (TIM)</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Jam Operasi</span
+                ><span class="v"
+                  >07.00 – 15.00 WIT (menyesuaikan kondisi cuaca)</span
+                >
+              </div>
+              <div class="id-row">
+                <span class="k">Mulai Beroperasi</span
+                ><span class="v"
+                  >Maret 2014 (lokasi baru, menggantikan lapangan terbang
+                  lama)</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 3 — SEJARAH ============ -->
+      <div class="page" id="page-sejarah">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Profil · Sejarah</span>
+            <h1>Perjalanan Bandara Waghete</h1>
+            <p>
+              Dari lapangan terbang perintis di tepi Danau Tigi hingga menjadi
+              gerbang udara utama Kabupaten Deiyai.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap" style="max-width: 820px">
+            <div class="timeline">
+              <div class="tl-item reveal">
+                <span class="yr">ERA AWAL</span>
+                <h3>Lapangan Terbang Lama Waghete</h3>
+                <p>
+                  Penerbangan perintis mula-mula dilayani dari lapangan terbang
+                  lama di dekat Danau Tigi. Lokasinya yang rendah membuat
+                  landasan kerap tergenang saat air danau meluap, sehingga
+                  operasi sering terganggu.
+                </p>
+              </div>
+              <div class="tl-item reveal" data-d="1">
+                <span class="yr">PEMBANGUNAN</span>
+                <h3>Pemindahan ke Lokasi Baru</h3>
+                <p>
+                  Pemerintah membangun bandara baru di dataran yang lebih tinggi
+                  dan lebih luas — masih di wilayah kota Waghete, ibu kota
+                  Kabupaten Deiyai — dengan prospek pengembangan yang jauh lebih
+                  baik.
+                </p>
+              </div>
+              <div class="tl-item reveal" data-d="2">
+                <span class="yr">MARET 2014</span>
+                <h3>Bandara Waghete Baru Beroperasi</h3>
+                <p>
+                  Bandar Udara Waghete di lokasi baru mulai beroperasi melayani
+                  penerbangan perintis, menjadi bukti kehadiran negara dalam
+                  membuka daerah terisolir di pedalaman Papua.
+                </p>
+              </div>
+              <div class="tl-item reveal" data-d="3">
+                <span class="yr">PENGEMBANGAN</span>
+                <h3>Peningkatan Landas Pacu &amp; Fasilitas</h3>
+                <p>
+                  Landas pacu ditingkatkan hingga 1.400 × 30 meter sehingga
+                  mampu didarati Grand Caravan dan Twin Otter secara reguler,
+                  melayani penumpang sekaligus kargo bahan pokok.
+                </p>
+              </div>
+              <div class="tl-item reveal" data-d="4">
+                <span class="yr">HARI INI</span>
+                <h3>Gerbang Utama Kabupaten Deiyai</h3>
+                <p>
+                  Dengan akses darat dari Nabire yang memakan waktu 8–9 jam dan
+                  belum tersedianya jalan dari Timika, Bandara Waghete menjadi
+                  satu-satunya jalur transportasi udara yang menghubungkan
+                  Deiyai dengan kota-kota utama Papua Tengah.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 4 — TUGAS & FUNGSI ============ -->
+      <div class="page" id="page-tugas-fungsi">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Profil · Tugas &amp; Fungsi</span>
+            <h1>Tugas &amp; Fungsi UPBU</h1>
+            <p>
+              Sesuai ketentuan organisasi dan tata kerja Kantor Unit
+              Penyelenggara Bandar Udara di lingkungan Kementerian Perhubungan.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="visi-banner reveal" style="margin-bottom: 54px">
+              <span class="eyebrow">Tugas Pokok</span>
+              <blockquote>
+                Melaksanakan pelayanan jasa kebandarudaraan dan jasa terkait
+                bandar udara, kegiatan keamanan, keselamatan, dan
+                <em>ketertiban penerbangan</em> pada bandar udara yang belum
+                diusahakan secara komersial.
+              </blockquote>
+            </div>
+            <div class="section-head reveal">
+              <span class="eyebrow">Fungsi</span>
+              <h2 class="section-title">Sembilan Fungsi Utama</h2>
+            </div>
+            <div class="grid c3">
+              <div class="lc reveal">
+                <span class="n">F1</span>
+                <div>
+                  <h4>Rencana &amp; Program</h4>
+                  <p>
+                    Penyusunan rencana dan program kegiatan operasional bandar
+                    udara.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="1">
+                <span class="n">F2</span>
+                <div>
+                  <h4>Keamanan Penerbangan</h4>
+                  <p>
+                    Pelaksanaan kegiatan pengamanan bandar udara dan penanganan
+                    penumpang, bagasi, serta kargo.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="2">
+                <span class="n">F3</span>
+                <div>
+                  <h4>PKP-PK</h4>
+                  <p>
+                    Pelayanan pertolongan kecelakaan penerbangan dan pemadam
+                    kebakaran (PKP-PK).
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal">
+                <span class="n">F4</span>
+                <div>
+                  <h4>Sisi Udara &amp; Sisi Darat</h4>
+                  <p>
+                    Pengoperasian dan pemeliharaan fasilitas landas pacu,
+                    taxiway, apron, terminal, dan penunjangnya.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="1">
+                <span class="n">F5</span>
+                <div>
+                  <h4>Pelayanan Jasa</h4>
+                  <p>
+                    Pelayanan jasa kebandarudaraan dan jasa terkait untuk
+                    penumpang, kargo, dan pos.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="2">
+                <span class="n">F6</span>
+                <div>
+                  <h4>Keselamatan Operasi</h4>
+                  <p>
+                    Pengawasan dan pengendalian keselamatan operasi penerbangan
+                    di lingkungan kerja bandar udara.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal">
+                <span class="n">F7</span>
+                <div>
+                  <h4>Kerja Sama</h4>
+                  <p>
+                    Koordinasi dengan instansi terkait, pemerintah daerah, dan
+                    pemangku kepentingan penerbangan.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="1">
+                <span class="n">F8</span>
+                <div>
+                  <h4>Administrasi</h4>
+                  <p>
+                    Pengelolaan urusan tata usaha, kepegawaian, keuangan, hukum,
+                    dan hubungan masyarakat.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="2">
+                <span class="n">F9</span>
+                <div>
+                  <h4>Evaluasi &amp; Pelaporan</h4>
+                  <p>
+                    Evaluasi dan pelaporan seluruh kegiatan penyelenggaraan
+                    bandar udara secara berkala.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 5 — VISI MISI ============ -->
+      <div class="page" id="page-visi-misi">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Profil · Visi &amp; Misi</span>
+            <h1>Visi &amp; Misi</h1>
+            <p>
+              Arah pengembangan Bandar Udara Waghete dalam mendukung
+              konektivitas dan pertumbuhan Tanah Deiyai.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="visi-banner reveal" style="margin-bottom: 54px">
+              <span class="eyebrow">Visi</span>
+              <blockquote>
+                Terwujudnya bandar udara yang
+                <em>selamat, aman, dan nyaman</em> sebagai gerbang konektivitas
+                udara yang menghubungkan dan menyejahterakan masyarakat
+                Kabupaten Deiyai.
+              </blockquote>
+            </div>
+            <div class="section-head reveal">
+              <span class="eyebrow">Misi</span>
+              <h2 class="section-title">Lima Misi Pelayanan</h2>
+            </div>
+            <div class="grid c3">
+              <div class="lc reveal">
+                <span class="n">M1</span>
+                <div>
+                  <h4>Keselamatan Utama</h4>
+                  <p>
+                    Menyelenggarakan operasi bandar udara dengan mengutamakan
+                    keselamatan dan keamanan penerbangan sesuai regulasi.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="1">
+                <span class="n">M2</span>
+                <div>
+                  <h4>Pelayanan Prima</h4>
+                  <p>
+                    Memberikan pelayanan jasa kebandarudaraan yang ramah, cepat,
+                    transparan, dan tanpa diskriminasi.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="2">
+                <span class="n">M3</span>
+                <div>
+                  <h4>Konektivitas Perintis</h4>
+                  <p>
+                    Menjamin keberlangsungan penerbangan perintis penumpang dan
+                    kargo bagi masyarakat pedalaman.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal">
+                <span class="n">M4</span>
+                <div>
+                  <h4>SDM Profesional</h4>
+                  <p>
+                    Mengembangkan sumber daya manusia bandar udara yang
+                    kompeten, berintegritas, dan profesional.
+                  </p>
+                </div>
+              </div>
+              <div class="lc reveal" data-d="1">
+                <span class="n">M5</span>
+                <div>
+                  <h4>Sinergi Daerah</h4>
+                  <p>
+                    Bersinergi dengan pemerintah daerah dan masyarakat dalam
+                    menumbuhkan perekonomian Kabupaten Deiyai.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 6 — STRUKTUR ORGANISASI ============ -->
+      <div class="page" id="page-struktur">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Profil · Organisasi</span>
+            <h1>Struktur Organisasi</h1>
+            <p>
+              Susunan organisasi Kantor UPBU Kelas III Waghete.
+              <em
+                >Nama pejabat merupakan placeholder — ganti dengan data
+                kepegawaian terkini.</em
+              >
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="org reveal">
+              <div class="org-node head">
+                <div class="role">Kepala Kantor UPBU Kelas III Waghete</div>
+                <div class="name">[ NAMA KEPALA BANDARA ]</div>
+              </div>
+              <div class="org-link"></div>
+              <div class="org-node">
+                <div class="role">Kepala Urusan Tata Usaha</div>
+                <div class="name">[ NAMA PEJABAT ]</div>
+              </div>
+              <div class="org-tier">
+                <div class="org-node">
+                  <div class="role">
+                    Kelompok Teknik, Operasi &amp; Pelayanan Darurat
+                  </div>
+                  <div class="name">[ KOORDINATOR ]</div>
+                </div>
+                <div class="org-node">
+                  <div class="role">Kelompok Keamanan Penerbangan (AVSEC)</div>
+                  <div class="name">[ KOORDINATOR ]</div>
+                </div>
+                <div class="org-node">
+                  <div class="role">Kelompok Jabatan Fungsional</div>
+                  <div class="name">[ KOORDINATOR ]</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 7 — MAKLUMAT ============ -->
+      <div class="page" id="page-maklumat">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Layanan · Maklumat</span>
+            <h1>Maklumat Pelayanan</h1>
+            <p>
+              Pernyataan kesanggupan penyelenggara dalam memberikan pelayanan
+              sesuai standar pelayanan publik.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap" style="max-width: 880px">
+            <div class="maklumat reveal">
+              <span class="seal"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  <path d="m9 12 2 2 4-4" /></svg
+              ></span>
+              <blockquote>
+                “Dengan ini kami menyatakan
+                <em>sanggup menyelenggarakan pelayanan</em> sesuai standar
+                pelayanan yang telah ditetapkan, dan apabila tidak menepati
+                janji ini, kami <em>siap menerima sanksi</em> sesuai peraturan
+                perundang-undangan yang berlaku.”
+              </blockquote>
+              <div class="sign">
+                Kepala Kantor UPBU Kelas III Waghete<br />Kementerian
+                Perhubungan Republik Indonesia
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 8 — TARIF BLU ============ -->
+      <div class="page" id="page-tarif">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Layanan · Tarif</span>
+            <h1>Tarif Badan Layanan Umum</h1>
+            <p>
+              Dokumen resmi tarif jasa kebandarudaraan Badan Layanan Umum (BLU)
+              UPBU Waghete — ditampilkan langsung dari Google Docs.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="doc-frame reveal">
+              <div class="bar">
+                <span class="t">DOKUMEN-TARIF-BLU-UPBU-WAGHETE.GDOC</span>
+                <!-- GANTI GOOGLE_DOCS_ID dengan ID dokumen asli -->
+                <a
+                  class="btn btn-blue"
+                  style="padding: 9px 18px; font-size: 0.8rem"
+                  href="https://docs.google.com/document/d/GOOGLE_DOCS_ID/edit"
+                  target="_blank"
+                  rel="noopener"
+                  >Buka di Google Docs
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M7 17 17 7m0 0H8m9 0v9" />
+                  </svg>
+                </a>
+              </div>
+              <!-- GANTI GOOGLE_DOCS_ID di bawah ini juga -->
+              <iframe
+                src="https://docs.google.com/document/d/GOOGLE_DOCS_ID/preview"
+                title="Tarif BLU UPBU Waghete"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 9 — BANTUAN ============ -->
+      <div class="page" id="page-bantuan">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Layanan · Bantuan</span>
+            <h1>Bantuan &amp; Dukungan</h1>
+            <p>
+              Butuh informasi jadwal, kargo, atau pengaduan pelayanan? Hubungi
+              kami lewat WhatsApp atau kirim pesan melalui formulir.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="grid c2" style="align-items: stretch">
+              <div class="wa-card reveal">
+                <span class="ico"
+                  ><svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                      d="M12 2A10 10 0 0 0 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.6-6.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.9.9-1.1 2.2-.2 3.9 1.1 2 2.7 3.5 4.8 4.4 1.7.7 2.4.7 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.2-.6-.3z"
+                    /></svg
+                ></span>
+                <h3>WhatsApp Resmi</h3>
+                <p>
+                  Layanan informasi tercepat pada jam operasional (07.00–15.00
+                  WIT). Sampaikan pertanyaan jadwal, tarif kargo, kehilangan
+                  barang, atau pengaduan pelayanan.
+                </p>
+                <!-- GANTI 62XXXXXXXXXXX dengan nomor WhatsApp resmi bandara -->
+                <a
+                  class="wa-btn"
+                  href="https://wa.me/62XXXXXXXXXXX?text=Halo%20UPBU%20Waghete%2C%20saya%20ingin%20bertanya%20tentang..."
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Chat via WhatsApp
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.4"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    width="15"
+                    height="15"
+                  >
+                    <path d="M5 12h14m-6-6 6 6-6 6" />
+                  </svg>
+                </a>
+              </div>
+
+              <div class="form-card reveal" data-d="1">
+                <div class="section-head" style="margin-bottom: 22px">
+                  <span class="eyebrow">Formulir</span>
+                  <h2 class="section-title" style="font-size: 1.5rem">
+                    Kirim Pesan
+                  </h2>
+                </div>
+                <form id="helpForm">
+                  <div class="f-row">
+                    <div class="f-group">
+                      <label for="hNama">Nama Lengkap</label
+                      ><input id="hNama" required placeholder="Nama Anda" />
+                    </div>
+                    <div class="f-group">
+                      <label for="hKontak">Email / No. HP</label
+                      ><input
+                        id="hKontak"
+                        required
+                        placeholder="email@contoh.com"
+                      />
+                    </div>
+                  </div>
+                  <div class="f-group">
+                    <label for="hKat">Kategori</label>
+                    <select id="hKat">
+                      <option>Informasi jadwal penerbangan</option>
+                      <option>Kargo &amp; bagasi</option>
+                      <option>Pengaduan pelayanan</option>
+                      <option>Kerja sama / lainnya</option>
+                    </select>
+                  </div>
+                  <div class="f-group">
+                    <label for="hPesan">Pesan</label
+                    ><textarea
+                      id="hPesan"
+                      required
+                      placeholder="Tuliskan pertanyaan atau pengaduan Anda..."
+                    ></textarea>
+                  </div>
+                  <button class="btn btn-blue" type="submit">
+                    Kirim Pesan
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m22 2-7 20-4-9-9-4z" />
+                    </svg>
+                  </button>
+                  <div class="form-ok" id="helpOk">
+                    ✓ Pesan terkirim. Tim kami akan menghubungi Anda pada jam
+                    kerja. Terima kasih.
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 10 — KONTAK ============ -->
+      <div class="page" id="page-kontak">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Informasi · Kontak</span>
+            <h1>Hubungi Bandara</h1>
+            <p>
+              Alamat kantor, kanal resmi, dan lokasi Bandar Udara Waghete di
+              peta.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div class="grid c2" style="margin-bottom: 26px">
+              <div class="contact-tile reveal">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
+                    <circle cx="12" cy="10" r="3" /></svg
+                ></span>
+                <div>
+                  <h4>Alamat Kantor</h4>
+                  <p>
+                    Kantor UPBU Kelas III Waghete, Distrik Tigi, Kabupaten
+                    Deiyai, Provinsi Papua Tengah
+                  </p>
+                </div>
+              </div>
+              <div class="contact-tile reveal" data-d="1">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="3" />
+                    <path d="m2 7 10 6L22 7" /></svg
+                ></span>
+                <!-- GANTI dengan email resmi -->
+                <div>
+                  <h4>Email Resmi</h4>
+                  <p>
+                    upbu.waghete@kemenhub.go.id
+                    <em>(placeholder — ganti dengan email resmi)</em>
+                  </p>
+                </div>
+              </div>
+              <div class="contact-tile reveal">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2z"
+                    /></svg
+                ></span>
+                <!-- GANTI dengan nomor telepon/WA resmi -->
+                <div>
+                  <h4>Telepon / WhatsApp</h4>
+                  <p>
+                    +62 XXX-XXXX-XXXX
+                    <em>(placeholder — ganti dengan nomor resmi)</em>
+                  </p>
+                </div>
+              </div>
+              <div class="contact-tile reveal" data-d="1">
+                <span class="ico"
+                  ><svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <rect x="3" y="3" width="18" height="18" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.2" cy="6.8" r="1" /></svg
+                ></span>
+                <div>
+                  <h4>Instagram</h4>
+                  <p>
+                    <a
+                      href="https://www.instagram.com/waghete_airport/"
+                      target="_blank"
+                      rel="noopener"
+                      style="color: var(--blue-500); font-weight: 600"
+                      >@waghete_airport</a
+                    >
+                    — dokumentasi kegiatan &amp; pengumuman resmi bandara
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="map-frame reveal" data-d="2">
+              <iframe
+                title="Peta Bandar Udara Waghete"
+                loading="lazy"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=136.2517%2C-4.0887%2C136.3117%2C-4.0287&layer=mapnik&marker=-4.05875%2C136.28173"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ PAGE 11 — SURVEI ============ -->
+      <div class="page" id="page-survei">
+        <header class="page-hero">
+          <div class="wrap">
+            <span class="eyebrow">Partisipasi · Survei</span>
+            <h1>Survei &amp; Testimoni</h1>
+            <p>
+              Penilaian Anda menjadi dasar perbaikan mutu pelayanan Bandar Udara
+              Waghete. Luangkan satu menit untuk berbagi pengalaman.
+            </p>
+            <div class="runway">
+              <span class="lights"><i></i><i></i><i></i><i></i><i></i></span>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="wrap">
+            <div
+              class="grid c2"
+              style="align-items: start; margin-bottom: 60px"
+            >
+              <div class="form-card reveal">
+                <div class="section-head" style="margin-bottom: 22px">
+                  <span class="eyebrow">Formulir Survei</span>
+                  <h2 class="section-title" style="font-size: 1.5rem">
+                    Bagaimana pelayanan kami?
+                  </h2>
+                </div>
+                <form id="surveyForm">
+                  <div class="f-group">
+                    <label>Penilaian Keseluruhan</label>
+                    <div
+                      class="stars"
+                      id="stars"
+                      aria-label="Beri nilai 1 sampai 5 bintang"
+                    >
+                      <button type="button" data-v="1">★</button
+                      ><button type="button" data-v="2">★</button
+                      ><button type="button" data-v="3">★</button
+                      ><button type="button" data-v="4">★</button
+                      ><button type="button" data-v="5">★</button>
+                    </div>
+                  </div>
+                  <div class="f-row">
+                    <div class="f-group">
+                      <label for="sNama">Nama (opsional)</label
+                      ><input id="sNama" placeholder="Nama Anda" />
+                    </div>
+                    <div class="f-group">
+                      <label for="sPeran">Anda sebagai</label>
+                      <select id="sPeran">
+                        <option>Penumpang</option>
+                        <option>Pengirim kargo</option>
+                        <option>Penjemput / pengantar</option>
+                        <option>Mitra / instansi</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="f-group">
+                    <label for="sPesan">Testimoni / Saran</label
+                    ><textarea
+                      id="sPesan"
+                      placeholder="Ceritakan pengalaman Anda di Bandara Waghete..."
+                    ></textarea>
+                  </div>
+                  <button class="btn btn-gold" type="submit">
+                    Kirim Penilaian
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.4"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="m22 2-7 20-4-9-9-4z" />
+                    </svg>
+                  </button>
+                  <div class="form-ok" id="surveyOk">
+                    ✓ Terima kasih! Penilaian Anda telah kami terima dan menjadi
+                    bahan evaluasi pelayanan.
+                  </div>
+                </form>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 18px">
+                <div class="testi reveal" data-d="1">
+                  <span class="st">★★★★★</span>
+                  <p class="q">
+                    "Petugasnya ramah dan proses check-in cepat. Penerbangan ke
+                    Nabire berangkat sesuai jadwal pagi itu. Terima kasih UPBU
+                    Waghete."
+                  </p>
+                  <div class="who">
+                    <span class="av">YP</span>
+                    <div><b>Yosep P.</b><span>PENUMPANG · WET–NBX</span></div>
+                  </div>
+                </div>
+                <div class="testi reveal" data-d="2">
+                  <span class="st">★★★★★</span>
+                  <p class="q">
+                    "Pengiriman bahan pokok kami selalu tertangani dengan baik.
+                    Bandara ini sangat penting untuk usaha kami di Deiyai."
+                  </p>
+                  <div class="who">
+                    <span class="av">MD</span>
+                    <div><b>Maria D.</b><span>PENGIRIM KARGO</span></div>
+                  </div>
+                </div>
+                <div class="testi reveal" data-d="3">
+                  <span class="st">★★★★☆</span>
+                  <p class="q">
+                    "Ruang tunggu bersih dan ada WiFi. Semoga frekuensi
+                    penerbangan ke Timika bisa terus ditambah ke depannya."
+                  </p>
+                  <div class="who">
+                    <span class="av">AK</span>
+                    <div><b>Agus K.</b><span>PENUMPANG · WET–TIM</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+      <div class="foot-runway">
+        <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="wrap">
+        <div class="foot-grid">
+          <div class="foot-brand">
+            <div class="brand" style="align-items: flex-start">
+              <span class="brand-mark"
+                ><img
+                  src="assets/waghete-logo.png"
+                  alt="Logo Bandar Udara Waghete"
+              /></span>
+              <span class="brand-text"
+                ><b style="color: #fff">Bandar Udara Waghete</b
+                ><span style="color: rgba(255, 255, 255, 0.5)"
+                  >UPBU Kelas III · WET / WABA</span
+                ></span
+              >
+            </div>
+            <p>
+              Gerbang udara Kabupaten Deiyai, Papua Tengah — melayani
+              penerbangan perintis penumpang dan kargo bagi masyarakat Tanah
+              Tigi.
+            </p>
+          </div>
+          <div>
+            <h5>Profil</h5>
+            <a href="#/informasi-umum">Informasi Umum</a>
+            <a href="#/sejarah">Sejarah</a>
+            <a href="#/tugas-fungsi">Tugas &amp; Fungsi</a>
+            <a href="#/visi-misi">Visi &amp; Misi</a>
+            <a href="#/struktur">Struktur Organisasi</a>
+          </div>
+          <div>
+            <h5>Layanan</h5>
+            <a href="#/maklumat">Maklumat Pelayanan</a>
+            <a href="#/tarif">Tarif BLU</a>
+            <a href="#/bantuan">Bantuan &amp; Dukungan</a>
+            <a href="#/survei">Survei &amp; Testimoni</a>
+          </div>
+          <div>
+            <h5>Terhubung</h5>
+            <a
+              href="https://www.instagram.com/waghete_airport/"
+              target="_blank"
+              rel="noopener"
+              >Instagram @waghete_airport</a
+            >
+            <a
+              href="https://hubud.kemenhub.go.id"
+              target="_blank"
+              rel="noopener"
+              >Ditjen Perhubungan Udara</a
+            >
+            <a href="https://dephub.go.id" target="_blank" rel="noopener"
+              >Kementerian Perhubungan RI</a
+            >
+            <a href="#/kontak">Peta &amp; Alamat</a>
+          </div>
+        </div>
+      </div>
+      <div class="giant-wet">WET</div>
+      <div class="wrap">
+        <div class="foot-bottom">
+          <span
+            >© 2026 UPBU KELAS III WAGHETE · KEMENTERIAN PERHUBUNGAN RI</span
+          >
+          <span>DEIYAI · PAPUA TENGAH · UTC+9 WIT</span>
+        </div>
+      </div>
+    </footer>
+
+    <button class="to-top" id="toTop" aria-label="Kembali ke atas">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.4"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m18 15-6-6-6 6" />
+      </svg>
+    </button>
+
+    <script>
+      /* ============================================================
+   BANDAR UDARA WAGHETE — interaction layer
+   ============================================================ */
+
+      /* ---------- SPA hash router ---------- */
+      const ROUTES = [
+        "beranda",
+        "informasi-umum",
+        "sejarah",
+        "tugas-fungsi",
+        "visi-misi",
+        "struktur",
+        "maklumat",
+        "tarif",
+        "bantuan",
+        "kontak",
+        "survei",
+      ];
+      const nav = document.getElementById("nav");
+
+      function currentRoute() {
+        const h = location.hash.replace(/^#\/?/, "");
+        return ROUTES.includes(h) ? h : "beranda";
+      }
+      function render() {
+        const route = currentRoute();
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        const page = document.getElementById("page-" + route);
+        if (page) page.classList.add("active");
+
+        // nav active state
+        document.querySelectorAll(".menu-link[data-route]").forEach((a) => {
+          a.classList.toggle("active", a.dataset.route === route);
+        });
+        // hero-transparent nav only on landing
+        nav.classList.toggle("on-hero", route === "beranda");
+
+        document.getElementById("mobileMenu").classList.remove("open");
+        window.scrollTo({
+          top: 0,
+          behavior: "instant" in window ? "instant" : "auto",
+        });
+        requestAnimationFrame(observeReveals);
+      }
+      window.addEventListener("hashchange", render);
+
+      /* smooth-scroll for same-page anchors (hero CTA -> #jadwal) */
+      document.querySelectorAll("[data-scroll]").forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const target = document.querySelector(a.getAttribute("href"));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: "smooth" });
+          }
+        });
+      });
+
+      /* ---------- nav scroll state ---------- */
+      const toTop = document.getElementById("toTop");
+      window.addEventListener(
+        "scroll",
+        () => {
+          nav.classList.toggle("scrolled", window.scrollY > 30);
+          toTop.classList.toggle("show", window.scrollY > 600);
+        },
+        { passive: true },
+      );
+      toTop.addEventListener("click", () =>
+        window.scrollTo({ top: 0, behavior: "smooth" }),
+      );
+
+      /* ---------- mobile menu ---------- */
+      document.getElementById("hamburger").addEventListener("click", () => {
+        document.getElementById("mobileMenu").classList.toggle("open");
+      });
+
+      /* ---------- scroll reveal ---------- */
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add("in");
+              io.unobserve(en.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
+      );
+      function observeReveals() {
+        document
+          .querySelectorAll(".page.active .reveal:not(.in)")
+          .forEach((el) => io.observe(el));
+      }
+
+      /* ---------- WIT clock (UTC+9) ---------- */
+      function tick() {
+        const now = new Date(
+          Date.now() + (9 * 60 + new Date().getTimezoneOffset()) * 60000,
+        );
+        const p = (n) => String(n).padStart(2, "0");
+        const hms = `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
+        const el1 = document.getElementById("clock");
+        const el2 = document.getElementById("boardClock");
+        if (el1) el1.textContent = hms;
+        if (el2) el2.textContent = hms.slice(0, 5);
+      }
+      setInterval(tick, 1000);
+      tick();
+
+      /* ---------- animated counters ---------- */
+      const counterIO = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (!en.isIntersecting) return;
+            counterIO.unobserve(en.target);
+            const el = en.target,
+              end = +el.dataset.count,
+              dur = 1600,
+              t0 = performance.now();
+            (function step(t) {
+              const k = Math.min((t - t0) / dur, 1);
+              el.textContent = Math.round(end * (1 - Math.pow(1 - k, 4))); // easeOutQuart
+              if (k < 1) requestAnimationFrame(step);
+            })(t0);
+          });
+        },
+        { threshold: 0.5 },
+      );
+      document
+        .querySelectorAll("[data-count]")
+        .forEach((el) => counterIO.observe(el));
+
+      /* ============================================================
+   DEPARTURE BOARD — jadwal hari ini, dari Supabase
+   dir: dep = keberangkatan, arr = kedatangan
+   ============================================================ */
+      const SUPABASE_URL = "https://ddpmfcpokxdxdrusrrxb.supabase.co"; // TODO: ganti dengan URL project Supabase
+      const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkcG1mY3Bva3hkeGRydXNycnhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NDY0MTYsImV4cCI6MjA5OTUyMjQxNn0.cVk25HV3nbWHs9WZdvS3P-YmuG7ANwvIZmQ3eBNCojE"; // TODO: ganti dengan anon public key
+
+      let boardDir = "dep";
+      let todaySchedule = [];
+
+      const rowsEl = document.getElementById("boardRows");
+      const dateEl = document.getElementById("boardDate");
+
+      function witToday() {
+        return new Date(
+          Date.now() + (9 * 60 + new Date().getTimezoneOffset()) * 60000,
+        );
+      }
+      function todayISO() {
+        const d = witToday();
+        const p = (n) => String(n).padStart(2, "0");
+        return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
+      }
+
+      async function loadSchedule() {
+        const today = todayISO();
+        if (dateEl) dateEl.textContent = today.split("-").reverse().join("-");
+        rowsEl.innerHTML = `<div class="board-empty">MEMUAT JADWAL…</div>`;
+        try {
+          const url = `${SUPABASE_URL}/rest/v1/flight_schedule?flight_date=eq.${today}&order=time.asc`;
+          const res = await fetch(url, {
+            headers: {
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+          });
+          if (!res.ok) throw new Error("bad response");
+          todaySchedule = await res.json();
+          renderBoard();
+        } catch (err) {
+          rowsEl.innerHTML = `<div class="board-empty">— GAGAL MEMUAT JADWAL, COBA LAGI NANTI —</div>`;
+        }
+      }
+
+      function renderBoard() {
+        const rows = todaySchedule.filter((r) => r.dir === boardDir);
+        if (!rows.length) {
+          rowsEl.innerHTML = `<div class="board-empty">— TIDAK ADA PENERBANGAN TERJADWAL PADA HARI INI —</div>`;
+          return;
+        }
+        rowsEl.innerHTML = rows
+          .map(
+            (
+              r,
+              i,
+            ) => `<div class="board-row" style="animation-delay:${i * 70}ms">
+      <span class="time">${r.time}</span>
+      <span class="flight">${r.flight_no}</span>
+      <span class="route">${r.origin} <span class="arr">➔</span> ${r.destination}</span>
+      <span class="airline">${r.airline}</span>
+      <span class="chip ok">${r.status}</span>
+    </div>`,
+          )
+          .join("");
+      }
+      document.querySelectorAll(".board-tab").forEach((t) => {
+        t.addEventListener("click", () => {
+          document
+            .querySelectorAll(".board-tab")
+            .forEach((x) => x.classList.remove("active"));
+          t.classList.add("active");
+          boardDir = t.dataset.dir;
+          renderBoard();
+        });
+      });
+      loadSchedule();
+
+      /* ---------- forms (demo submit — sambungkan ke backend/WA jika perlu) ---------- */
+      function fakeSubmit(formId, okId) {
+        const f = document.getElementById(formId);
+        if (!f) return;
+        f.addEventListener("submit", (e) => {
+          e.preventDefault();
+          document.getElementById(okId).classList.add("show");
+          f.reset();
+          document
+            .querySelectorAll("#stars button")
+            .forEach((b) => b.classList.remove("on"));
+          setTimeout(
+            () => document.getElementById(okId).classList.remove("show"),
+            6000,
+          );
+        });
+      }
+      fakeSubmit("helpForm", "helpOk");
+      fakeSubmit("surveyForm", "surveyOk");
+
+      /* ---------- star rating ---------- */
+      const stars = document.querySelectorAll("#stars button");
+      stars.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const v = +btn.dataset.v;
+          stars.forEach((b) => b.classList.toggle("on", +b.dataset.v <= v));
+        });
+      });
+
+      /* ---------- easter egg: ketik "wet" untuk tower flyby ---------- */
+      let buf = "";
+      window.addEventListener("keydown", (e) => {
+        buf = (buf + e.key.toLowerCase()).slice(-3);
+        if (buf === "wet") {
+          const plane = document.createElement("div");
+          plane.textContent = "🛩";
+          plane.style.cssText =
+            "position:fixed;z-index:999;font-size:44px;top:" +
+            (20 + Math.random() * 40) +
+            "vh;left:-80px;pointer-events:none;transition:transform 3.2s linear;filter:drop-shadow(0 6px 12px rgba(11,44,95,.4))";
+          document.body.appendChild(plane);
+          requestAnimationFrame(
+            () =>
+              (plane.style.transform =
+                "translateX(120vw) translateY(-8vh) rotate(-4deg)"),
+          );
+          setTimeout(() => plane.remove(), 3400);
+        }
+      });
+
+      /* ---------- init ---------- */
+      render();
+    </script>
+  </body>
+</html>
