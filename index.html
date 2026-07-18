@@ -969,30 +969,11 @@
       .board-top {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-end;
         gap: 16px;
         padding: 20px 26px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.09);
         flex-wrap: wrap;
-      }
-      .board-tabs {
-        display: flex;
-        gap: 6px;
-        background: rgba(255, 255, 255, 0.07);
-        padding: 5px;
-        border-radius: 99px;
-      }
-      .board-tab {
-        padding: 9px 20px;
-        border-radius: 99px;
-        color: rgba(255, 255, 255, 0.65);
-        font-weight: 600;
-        font-size: 0.85rem;
-        transition: all 0.3s var(--ease-out);
-      }
-      .board-tab.active {
-        background: var(--gold);
-        color: var(--navy-900);
       }
       .board-clockline {
         font-family: var(--font-mono);
@@ -1078,6 +1059,16 @@
         color: #5cd69b;
         border: 1px solid rgba(47, 163, 107, 0.35);
       }
+      .chip.warn {
+        background: rgba(232, 178, 58, 0.15);
+        color: var(--gold);
+        border: 1px solid rgba(232, 178, 58, 0.4);
+      }
+      .chip.danger {
+        background: rgba(214, 69, 69, 0.15);
+        color: #ff8b8b;
+        border: 1px solid rgba(214, 69, 69, 0.4);
+      }
       .board-note {
         padding: 16px 26px 22px;
         font-size: 0.78rem;
@@ -1090,6 +1081,63 @@
         color: rgba(255, 255, 255, 0.5);
         font-family: var(--font-mono);
         font-size: 0.85rem;
+      }
+
+      /* ---------- QR schedule modal ---------- */
+      .qr-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        background: rgba(3, 12, 28, 0.72);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .qr-modal.hidden {
+        display: none;
+      }
+      .qr-modal-card {
+        width: 100%;
+        max-width: 640px;
+        max-height: 86vh;
+        overflow-y: auto;
+        background: var(--navy-900);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-2);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: #fff;
+      }
+      .qr-modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 20px 22px 4px;
+      }
+      .qr-modal-head h2 {
+        font-size: 1.05rem;
+        margin: 0;
+        color: #fff;
+      }
+      .qr-modal-close {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.06);
+        color: #fff;
+        font-size: 1rem;
+        line-height: 1;
+        cursor: pointer;
+        flex: none;
+        transition: all 0.2s;
+      }
+      .qr-modal-close:hover {
+        background: var(--gold);
+        color: var(--navy-900);
+        border-color: var(--gold);
       }
 
       /* ---------- service cards ---------- */
@@ -2278,13 +2326,35 @@
     </style>
   </head>
   <body>
+    <!-- ============ QR SCHEDULE MODAL ============ -->
+    <div class="qr-modal hidden" id="qrModal">
+      <div class="qr-modal-card">
+        <div class="qr-modal-head">
+          <h2>Jadwal Hari Ini</h2>
+          <button class="qr-modal-close" id="qrModalClose" aria-label="Tutup">
+            ✕
+          </button>
+        </div>
+        <div class="board-clockline" style="padding: 0 22px 14px">
+          WAGHETE · <b id="qrModalClock">--:--</b> WIT ·
+          <span id="qrModalDate">--</span>
+        </div>
+        <div class="board-head">
+          <span>Waktu</span><span class="h-fl">No. Pnb</span
+          ><span>Rute</span><span class="h-air">Maskapai</span
+          ><span>Status</span>
+        </div>
+        <div class="board-rows" id="qrModalRows"></div>
+      </div>
+    </div>
+
     <!-- ============ NAV ============ -->
     <nav class="nav on-hero" id="nav">
       <div class="nav-inner">
         <a href="#/beranda" class="brand">
           <span class="brand-mark">
             <img
-              src="assets/waghete-logo.PNG"
+              src="assets/waghete-logo.png"
               alt="Logo Bandar Udara Waghete test"
             />
           </span>
@@ -2537,12 +2607,6 @@
 
             <div class="board-shell reveal" data-d="1">
               <div class="board-top">
-                <div class="board-tabs">
-                  <button class="board-tab active" data-dir="dep">
-                    ✈ Keberangkatan
-                  </button>
-                  <button class="board-tab" data-dir="arr">⬇ Kedatangan</button>
-                </div>
                 <div class="board-clockline">
                   WAGHETE · <b id="boardClock">--:--</b> WIT ·
                   <span id="boardDate">--</span>
@@ -4088,8 +4152,10 @@
         const hms = `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
         const el1 = document.getElementById("clock");
         const el2 = document.getElementById("boardClock");
+        const el3 = document.getElementById("qrModalClock");
         if (el1) el1.textContent = hms;
         if (el2) el2.textContent = hms.slice(0, 5);
+        if (el3) el3.textContent = hms.slice(0, 5);
       }
       setInterval(tick, 1000);
       tick();
@@ -4125,11 +4191,13 @@
       const SUPABASE_ANON_KEY =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRkcG1mY3Bva3hkeGRydXNycnhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM5NDY0MTYsImV4cCI6MjA5OTUyMjQxNn0.cVk25HV3nbWHs9WZdvS3P-YmuG7ANwvIZmQ3eBNCojE"; // TODO: ganti dengan anon public key
 
-      let boardDir = "dep";
       let todaySchedule = [];
 
       const rowsEl = document.getElementById("boardRows");
       const dateEl = document.getElementById("boardDate");
+      const qrRowsEl = document.getElementById("qrModalRows");
+      const qrDateEl = document.getElementById("qrModalDate");
+      const qrModalEl = document.getElementById("qrModal");
 
       function witToday() {
         return new Date(
@@ -4144,8 +4212,10 @@
 
       async function loadSchedule() {
         const today = todayISO();
-        if (dateEl) dateEl.textContent = today.split("-").reverse().join("-");
-        rowsEl.innerHTML = `<div class="board-empty">MEMUAT JADWAL…</div>`;
+        const dateLabel = today.split("-").reverse().join("-");
+        if (dateEl) dateEl.textContent = dateLabel;
+        if (qrDateEl) qrDateEl.textContent = dateLabel;
+        showMessage("MEMUAT JADWAL…");
         try {
           const url = `${SUPABASE_URL}/rest/v1/flight_schedule?flight_date=eq.${today}&order=time.asc`;
           const res = await fetch(url, {
@@ -4158,17 +4228,29 @@
           todaySchedule = await res.json();
           renderBoard();
         } catch (err) {
-          rowsEl.innerHTML = `<div class="board-empty">— GAGAL MEMUAT JADWAL, COBA LAGI NANTI —</div>`;
+          showMessage("— GAGAL MEMUAT JADWAL, COBA LAGI NANTI —");
         }
       }
 
+      function showMessage(msg) {
+        const html = `<div class="board-empty">${msg}</div>`;
+        if (rowsEl) rowsEl.innerHTML = html;
+        if (qrRowsEl) qrRowsEl.innerHTML = html;
+      }
+
+      function statusChipClass(status) {
+        const s = (status || "").toLowerCase();
+        if (s.includes("batal")) return "danger";
+        if (s.includes("delay") || s.includes("boarding")) return "warn";
+        return "ok";
+      }
+
       function renderBoard() {
-        const rows = todaySchedule.filter((r) => r.dir === boardDir);
-        if (!rows.length) {
-          rowsEl.innerHTML = `<div class="board-empty">— TIDAK ADA PENERBANGAN TERJADWAL PADA HARI INI —</div>`;
+        if (!todaySchedule.length) {
+          showMessage("— TIDAK ADA PENERBANGAN TERJADWAL PADA HARI INI —");
           return;
         }
-        rowsEl.innerHTML = rows
+        const html = todaySchedule
           .map(
             (
               r,
@@ -4178,20 +4260,22 @@
       <span class="flight">${r.flight_no}</span>
       <span class="route">${r.origin} <span class="arr">➔</span> ${r.destination}</span>
       <span class="airline">${r.airline}</span>
-      <span class="chip ok">${r.status}</span>
+      <span class="chip ${statusChipClass(r.status)}">${r.status}</span>
     </div>`,
           )
           .join("");
+        if (rowsEl) rowsEl.innerHTML = html;
+        if (qrRowsEl) qrRowsEl.innerHTML = html;
       }
-      document.querySelectorAll(".board-tab").forEach((t) => {
-        t.addEventListener("click", () => {
-          document
-            .querySelectorAll(".board-tab")
-            .forEach((x) => x.classList.remove("active"));
-          t.classList.add("active");
-          boardDir = t.dataset.dir;
-          renderBoard();
-        });
+
+      /* QR scan entry point: e.g. https://yourdomain/?jadwal=1 opens
+         straight into the schedule modal; the landing page underneath
+         is revealed once the visitor closes it with the X button. */
+      if (new URLSearchParams(location.search).get("jadwal") === "1") {
+        qrModalEl.classList.remove("hidden");
+      }
+      document.getElementById("qrModalClose").addEventListener("click", () => {
+        qrModalEl.classList.add("hidden");
       });
       loadSchedule();
 
